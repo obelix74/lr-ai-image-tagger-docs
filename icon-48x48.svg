@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+  <rect width="48" height="48" fill="white"/>
+
+  <!-- Photo/Image frame -->
+  <rect x="7.199999999999999" y="7.199999999999999" width="33.599999999999994" height="33.599999999999994"
+        fill="none" stroke="black" stroke-width="2" rx="2.4000000000000004"/>
+
+  <!-- Mountain/landscape inside frame (representing image) -->
+  <path d="M 9.2,38.8 L 15.599999999999998,20.639999999999997 L 22.319999999999997,29.039999999999996 L 32.39999999999999,18.959999999999997 L 38.8,38.8 Z"
+        fill="black"/>
+
+  <!-- Sun/circle in top right of image -->
+  <circle cx="32.39999999999999" cy="15.599999999999998" r="2.88" fill="black"/>
+
+  <!-- AI brain icon in bottom right corner -->
+  <g transform="translate(33.6, 33.6)">
+    <!-- Brain outline -->
+    <path d="M M 1.2,6.0 Q 0,4.8 1.2,3.5999999999999996 Q 0.6,2.4 1.7999999999999998,1.7999999999999998 Q 2.4,0.6 4.2,1.2 Q 6.0,0 7.8,1.2 Q 9.6,0.6 10.2,1.7999999999999998 Q 11.4,2.4 10.799999999999999,3.5999999999999996 Q 12.0,4.8 10.799999999999999,6.0 Q 11.4,7.8 10.2,9.0 Q 9.0,10.2 7.199999999999999,9.6 Q 6.0,10.799999999999999 4.8,9.6 Q 3.0,10.2 1.7999999999999998,9.0 Q 0.6,7.8 1.2,6.0" fill="none" stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Neural network nodes inside brain -->
+    <circle cx="3.5999999999999996" cy="4.8" r="1" fill="black"/>
+    <circle cx="6.0" cy="4.8" r="1" fill="black"/>
+    <circle cx="8.4" cy="4.8" r="1" fill="black"/>
+  </g>
+
+  <!-- Tag icon in top left corner -->
+  <g transform="translate(2.8800000000000003, 7.6800000000000015) rotate(-45)">
+    <path d="M 0,2.8800000000000003 L 9.600000000000001,0 L 9.600000000000001,1.4400000000000002 L 1.4400000000000002,9.600000000000001 L 0,9.600000000000001 Z"
+          fill="none" stroke="black" stroke-width="1"/>
+    <circle cx="7.200000000000001" cy="1.4400000000000002" r="1" fill="black"/>
+  </g>
+</svg>

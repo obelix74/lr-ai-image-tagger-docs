@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="192" height="192" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+  <rect width="192" height="192" fill="white"/>
+
+  <!-- Photo/Image frame -->
+  <rect x="28.799999999999997" y="28.799999999999997" width="134.39999999999998" height="134.39999999999998"
+        fill="none" stroke="black" stroke-width="5.76" rx="9.600000000000001"/>
+
+  <!-- Mountain/landscape inside frame (representing image) -->
+  <path d="M 34.559999999999995,157.44 L 62.39999999999999,82.55999999999999 L 89.27999999999999,116.15999999999998 L 129.59999999999997,75.83999999999999 L 157.44,157.44 Z"
+        fill="black"/>
+
+  <!-- Sun/circle in top right of image -->
+  <circle cx="129.59999999999997" cy="62.39999999999999" r="11.52" fill="black"/>
+
+  <!-- AI brain icon in bottom right corner -->
+  <g transform="translate(134.4, 134.4)">
+    <!-- Brain outline -->
+    <path d="M M 4.8,24.0 Q 0,19.2 4.8,14.399999999999999 Q 2.4,9.6 7.199999999999999,7.199999999999999 Q 9.6,2.4 16.8,4.8 Q 24.0,0 31.2,4.8 Q 38.4,2.4 40.8,7.199999999999999 Q 45.6,9.6 43.199999999999996,14.399999999999999 Q 48.0,19.2 43.199999999999996,24.0 Q 45.6,31.2 40.8,36.0 Q 36.0,40.8 28.799999999999997,38.4 Q 24.0,43.199999999999996 19.2,38.4 Q 12.0,40.8 7.199999999999999,36.0 Q 2.4,31.2 4.8,24.0" fill="none" stroke="black" stroke-width="2.88" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Neural network nodes inside brain -->
+    <circle cx="14.399999999999999" cy="19.2" r="1.92" fill="black"/>
+    <circle cx="24.0" cy="19.2" r="1.92" fill="black"/>
+    <circle cx="33.6" cy="19.2" r="1.92" fill="black"/>
+  </g>
+
+  <!-- Tag icon in top left corner -->
+  <g transform="translate(11.520000000000001, 30.720000000000006) rotate(-45)">
+    <path d="M 0,11.520000000000001 L 38.400000000000006,0 L 38.400000000000006,5.760000000000001 L 5.760000000000001,38.400000000000006 L 0,38.400000000000006 Z"
+          fill="none" stroke="black" stroke-width="2.88"/>
+    <circle cx="28.800000000000004" cy="5.760000000000001" r="2.88" fill="black"/>
+  </g>
+</svg>
