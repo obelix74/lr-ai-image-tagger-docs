@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glean Beta</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: #f5f5f7;
+            color: #1d1d1f;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            font-weight: 600;
+        }
+        h1 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #6e6e73;
+            margin-bottom: 2rem;
+        }
+        .video-placeholder {
+            width: 100%;
+            height: 400px;
+            background: #e8e8ed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .video-placeholder p {
+            color: #86868b;
+            font-weight: 500;
+        }
+        .section {
+            margin-bottom: 2rem;
+        }
+        .section h2 {
+            border-bottom: 1px solid #d2d2d7;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .features-list {
+            list-style: none;
+            padding: 0;
+        }
+        .features-list li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #007aff;
+        }
+        .warning {
+            background: #fff3cd;
+            color: #856404;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #ffeeba;
+        }
+        .button {
+            display: inline-block;
+            background: #007aff;
+            color: #fff;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            text-align: center;
+        }
+        .center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Glean Beta Program</h1>
+        <p class="subtitle">The future of professional digital asset management on macOS.</p>
+
+        <div class="video-placeholder">
+            <p>Demo Video Coming Soon</p>
+        </div>
+
+        <div class="section">
+            <h2>What is Glean?</h2>
+            <p>Glean is a professional-grade, native macOS Digital Asset Management (DAM) application designed for photographers, photojournalists, and archivists. It combines blazing-fast culling workflows with powerful cataloging and AI-driven automation features to streamline your workflow.</p>
+        </div>
+
+        <div class="section">
+            <h2>Key Features</h2>
+            <ul class="features-list">
+                <li><strong>Uncompromising Speed:</strong> Optimized for instantaneous response times, from loading thousands of RAW images to navigating previews.</li>
+                <li><strong>Intelligent Automation:</strong> AI-powered metadata generation, keyword tagging, and natural language search (powered by Gemini, OpenAI, or local models).</li>
+                <li><strong>Advanced Duplicate Detection:</strong> Find near-duplicates with perceptual hashing and semantic duplicates with a local CLIP model.</li>
+                <li><strong>Robust Cataloging:</strong> Manage millions of photos across dozens of online and offline drives with a powerful SQLite-based backend.</li>
+                <li><strong>Seamless Workflow:</strong> Designed for fluid integration with tools like Adobe Lightroom, Capture One, and Photoshop.</li>
+                <li><strong>Comprehensive Metadata Support:</strong> Hybrid engine using Apple's Image I/O for speed and ExifTool for deep, comprehensive metadata control.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Installation of Dependencies</h2>
+            <p>Glean relies on two external tools for its full functionality:</p>
+            <ul>
+                <li><strong>ExifTool:</strong> For comprehensive metadata reading and writing.</li>
+                <li><strong>CLIP Model:</strong> For semantic duplicate detection and natural language search.</li>
+            </ul>
+            <p>These can be easily installed from the <strong>Settings > Dependencies</strong> dialog within the Glean application.</p>
+        </div>
+
+        <div class="section">
+            <h2>Join the Beta</h2>
+            <p>We are looking for photographers, archivists, and enthusiasts to help us test and refine Glean. As a beta tester, you'll get early access to new features and have a direct impact on the future of the application.</p>
+            <div class="warning">
+                <p><strong>Important:</strong> This is a beta version. Please use it with copies of your files or data that you are willing to experiment with. While we have worked hard to ensure stability, unexpected issues can occur.</p>
+            </div>
+        </div>
+
+        <div class="section" id="signup-form">
+            <h2>Beta Signup</h2>
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSf0ihRnxJYhSrB176K0vyqUzP2XVtBlXaurDIJxWkUOSNTMJg/viewform?embedded=true" width="640" height="1578" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        </div>
+    </div>
+</body>
+</html>
