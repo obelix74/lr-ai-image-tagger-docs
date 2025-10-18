@@ -10,30 +10,37 @@
             line-height: 1.6;
             margin: 0;
             padding: 0;
-            background: #f5f5f7;
-            color: #1d1d1f;
+            background: #f0f2f5;
+            color: #1c1e21;
+        }
+        .header {
+            background: linear-gradient(45deg, #007aff, #5856d6);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin: 0;
+        }
+        .header p {
+            font-size: 1.25rem;
+            margin: 0.5rem 0 0;
         }
         .container {
             max-width: 800px;
-            margin: 2rem auto;
+            margin: -2rem auto 2rem;
             padding: 2rem;
             background: #fff;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 2;
         }
-        h1, h2 {
+        h2 {
             font-weight: 600;
-        }
-        h1 {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-        .subtitle {
-            text-align: center;
-            font-size: 1.2rem;
-            color: #6e6e73;
-            margin-bottom: 2rem;
+            color: #333;
         }
         .video-placeholder {
             width: 100%;
@@ -53,31 +60,35 @@
             margin-bottom: 2rem;
         }
         .section h2 {
-            border-bottom: 1px solid #d2d2d7;
+            border-bottom: 2px solid #007aff;
             padding-bottom: 0.5rem;
             margin-bottom: 1rem;
+            display: inline-block;
         }
         .features-list {
             list-style: none;
             padding: 0;
         }
         .features-list li {
-            margin-bottom: 0.5rem;
-            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            padding-left: 1.75rem;
             position: relative;
+            font-size: 1.05rem;
         }
         .features-list li::before {
             content: '✓';
             position: absolute;
             left: 0;
-            color: #007aff;
+            color: #34c759;
+            font-weight: 600;
+            font-size: 1.2rem;
         }
         .warning {
             background: #fff3cd;
             color: #856404;
             padding: 1rem;
             border-radius: 8px;
-            border: 1px solid #ffeeba;
+            border-left: 5px solid #ffeeba;
         }
         .button {
             display: inline-block;
@@ -88,17 +99,27 @@
             border-radius: 8px;
             font-weight: 500;
             text-align: center;
+            transition: background-color 0.2s ease;
+        }
+        .button:hover {
+            background: #005ecb;
         }
         .center {
             text-align: center;
         }
+        #signup-form h2 {
+            text-align: center;
+            border: none;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="header">
         <h1>Glean Beta Program</h1>
-        <p class="subtitle">The future of professional digital asset management on macOS.</p>
+        <p>The future of professional digital asset management on macOS.</p>
+    </div>
 
+    <div class="container">
         <div class="video-placeholder">
             <p>Demo Video Coming Soon</p>
         </div>
@@ -140,7 +161,10 @@
 
         <div class="section" id="signup-form">
             <h2>Beta Signup</h2>
-<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSf0ihRnxJYhSrB176K0vyqUzP2XVtBlXaurDIJxWkUOSNTMJg/viewform?embedded=true" width="640" height="1578" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+            <!-- Google Form Embed Code Goes Here -->
+            <div class="center">
+                <p>Please fill out the form below to join the beta program. The form will be embedded here.</p>
+            </div>
         </div>
     </div>
 </body>
