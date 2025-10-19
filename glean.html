@@ -120,8 +120,16 @@
     </div>
 
     <div class="container">
-        <div class="video-placeholder">
-            <p>Demo Video Coming Soon</p>
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; margin-bottom: 2rem;">
+            <iframe
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                src="https://www.youtube.com/embed/JwnRVhET4A8?si=umBefndB_mP8lRCI"
+                title="Glean Demo Video"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen>
+            </iframe>
         </div>
 
         <div class="section">
@@ -142,13 +150,85 @@
         </div>
 
         <div class="section">
-            <h2>Installation of Dependencies</h2>
-            <p>Glean relies on two external tools for its full functionality:</p>
+            <h2>Installation & Setup</h2>
+
+            <div style="background: #d4edda; border-left: 5px solid #28a745; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                <p style="margin: 0; color: #155724;"><strong>✅ Ready to Use!</strong> Glean works immediately after installation - no additional setup required. Simply download the DMG, drag to Applications, and start organizing your photos!</p>
+            </div>
+
+            <h3>What's Included?</h3>
+            <p>Glean uses <strong>Apple's Vision Framework</strong> built into macOS for fast, accurate duplicate detection. This means:</p>
             <ul>
-                <li><strong>ExifTool:</strong> For comprehensive metadata reading and writing.</li>
-                <li><strong>CLIP Model:</strong> For semantic duplicate detection and natural language search.</li>
+                <li>✅ <strong>Zero configuration</strong> - works right out of the box</li>
+                <li>✅ <strong>Fast performance</strong> - optimized for Apple Silicon and Intel Macs</li>
+                <li>✅ <strong>Small download</strong> - only 6.7 MB</li>
+                <li>✅ <strong>No internet required</strong> - everything runs locally</li>
             </ul>
-            <p>These can be easily installed from the <strong>Settings > Dependencies</strong> dialog within the Glean application.</p>
+
+            <h3>Duplicate Detection Technology</h3>
+            <p>Glean uses <strong>Apple's Vision Framework</strong> by default for duplicate detection, which provides:</p>
+            <ul style="margin-left: 1.5rem;">
+                <li>⭐⭐⭐⭐⭐ <strong>Excellent duplicate detection</strong> - finds near-identical photos with different edits, crops, or filters</li>
+                <li>⚡ <strong>Fast performance</strong> - processes ~50ms per image</li>
+                <li>✅ <strong>Built into macOS</strong> - no additional downloads needed</li>
+            </ul>
+
+            <h3>Bundled: Apple MobileCLIP for Semantic Similarity</h3>
+            <p>Find all photos of "beaches" or "mountains" regardless of how they look with the bundled MobileCLIP model for semantic similarity!</p>
+
+            <div style="background: #d4edda; border-left: 5px solid #28a745; padding: 1rem; border-radius: 8px; margin: 1.5rem 0;">
+                <p style="margin: 0 0 0.5rem 0; color: #155724;"><strong>✅ Included in the App</strong></p>
+                <p style="margin: 0.5rem 0 0 0; color: #155724;">Glean includes Apple's MobileCLIP S0 model (~103 MB) for semantic similarity and advanced content-based searches. No additional downloads or setup required!</p>
+            </div>
+
+            <h4>Dual Approach: Vision Framework + MobileCLIP</h4>
+            <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+                <thead>
+                    <tr style="background: #f0f2f5;">
+                        <th style="padding: 0.75rem; text-align: left; border: 1px solid #ddd;">Feature</th>
+                        <th style="padding: 0.75rem; text-align: left; border: 1px solid #ddd;">Vision Framework</th>
+                        <th style="padding: 0.75rem; text-align: left; border: 1px solid #ddd;">MobileCLIP (Bundled)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 0.75rem; border: 1px solid #ddd;">Duplicate Detection</td>
+                        <td style="padding: 0.75rem; border: 1px solid #ddd;">⭐⭐⭐⭐⭐ Excellent</td>
+                        <td style="padding: 0.75rem; border: 1px solid #ddd;">⭐⭐⭐⭐ Very Good</td>
+                    </tr>
+                    <tr style="background: #f8f9fa;">
+                        <td style="padding: 0.75rem; border: 1px solid #ddd;">Semantic Similarity</td>
+                        <td style="padding: 0.75rem; border: 1px solid #ddd;">⭐⭐⭐ Good</td>
+                        <td style="padding: 0.75rem; border: 1px solid #ddd;">⭐⭐⭐⭐⭐ Excellent</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0.75rem; border: 1px solid #ddd;">Speed</td>
+                        <td style="padding: 0.75rem; border: 1px solid #ddd;">⚡ Fast (50ms)</td>
+                        <td style="padding: 0.75rem; border: 1px solid #ddd;">⚡ Fast (optimized for Apple Silicon)</td>
+                    </tr>
+                    <tr style="background: #f8f9fa;">
+                        <td style="padding: 0.75rem; border: 1px solid #ddd;">Availability</td>
+                        <td style="padding: 0.75rem; border: 1px solid #ddd;">✅ Built into macOS</td>
+                        <td style="padding: 0.75rem; border: 1px solid #ddd;">✅ Bundled with Glean</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 0.75rem; border: 1px solid #ddd;">Model Size</td>
+                        <td style="padding: 0.75rem; border: 1px solid #ddd;">0 MB (system)</td>
+                        <td style="padding: 0.75rem; border: 1px solid #ddd;">~103 MB (app bundle)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><strong>Best of Both Worlds:</strong></p>
+            <ul style="margin-left: 1.5rem;">
+                <li><strong>Vision Framework:</strong> Excellent for finding near-duplicates (same photo with different edits, crops, or filters)</li>
+                <li><strong>MobileCLIP:</strong> Perfect for semantic searches (find all photos of mountains, beaches, or any concept - even if visually different)</li>
+                <li><strong>Combined Power:</strong> Glean uses both models automatically for the best duplicate detection and content organization</li>
+            </ul>
+
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;">
+                <strong>Note:</strong> ExifTool v13.15 is bundled with Glean for comprehensive metadata support - no additional installation needed!
+            </p>
         </div>
 
         <div class="section">
