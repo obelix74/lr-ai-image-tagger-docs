@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AiCatalog - The Intelligent Photo Manager for macOS</title>
+    <style>
+        :root {
+            --primary-color: #007AFF;
+            --secondary-color: #4A4A4A;
+            --background-color: #F9F9F9;
+            --surface-color: #FFFFFF;
+            --text-color: #333333;
+            --light-gray: #EAEAEA;
+            --border-radius: 12px;
+            --shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: var(--surface-color);
+            padding: 20px 0;
+            border-bottom: 1px solid var(--light-gray);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .cta-button {
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .cta-button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 0;
+            background: linear-gradient(180deg, var(--surface-color) 0%, var(--background-color) 100%);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--secondary-color);
+            max-width: 700px;
+            margin: 0 auto 0;
+        }
+
+        .section {
+            padding: 50px 0;
+        }
+
+        #features {
+            padding-top: 10px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--surface-color);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+        }
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .feature-card p {
+            color: var(--secondary-color);
+        }
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+        }
+
+        .video-section {
+            background: var(--surface-color);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+        .video-section h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .video-section p {
+            text-align: center;
+            color: var(--secondary-color);
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .video-placeholder {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            background: #000;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .video-placeholder-text {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-align: center;
+            padding: 20px;
+        }
+        .video-placeholder iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid var(--light-gray);
+            margin-top: 50px;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .hero p {
+                font-size: 1.1rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">AiCatalog</div>
+                <a href="#" class="cta-button">Download for macOS</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Rediscover Your Photo Library with AI</h1>
+                <p>AiCatalog is a powerful, offline-first digital asset manager for macOS that uses cutting-edge AI to automatically tag, find, and manage your entire photo collection. Fast, private, and built for photographers.</p>
+                
+            </div>
+        </section>
+
+        <section id="features" class="section">
+            <div class="container">
+                <h2 class="section-title">The Future of Photo Management</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🧠</div>
+                        <h3>AI-Powered Tagging</h3>
+                        <p>Let advanced AI analyze your photos and automatically generate descriptive keywords, titles, and captions. Spend less time keywording and more time shooting.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <h3>Natural Language Search</h3>
+                        <p>Find photos by simply describing them. Search for "sunset over mountains with a lake" and get instant, accurate results, no manual tagging required.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">✨</div>
+                        <h3>Intelligent Duplicate Detection</h3>
+                        <p>Using perceptual hashing and AI embeddings, AiCatalog finds both exact and near-duplicates, helping you clean up your library and save space.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <h3>Offline & Private</h3>
+                        <p>Your photos and their data are processed on your Mac and never sent to the cloud. Maintain complete control and privacy over your creative work.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon"> RAW</div>
+                        <h3>Pro-Grade File Support</h3>
+                        <p>Full support for the RAW formats from major camera brands. AiCatalog is built for professional workflows with robust metadata handling (IPTC).</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🗂️</div>
+                        <h3>Flexible Organization</h3>
+                        <p>Manage photos where they are. Reference files in their original location on internal or external drives without creating a monolithic library.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="videos" class="section">
+            <div class="container">
+                <div class="video-section">
+                    <h2>See AiCatalog in Action</h2>
+                    <p>Watch this quick overview to see how AiCatalog can revolutionize your photo management workflow in under two minutes.</p>
+                    <div class="video-placeholder">
+                        <!-- 
+                            TO EMBED YOUR VIDEO:
+                            1. Go to your video on YouTube or Vimeo.
+                            2. Click the "Share" button, then "Embed".
+                            3. Copy the <iframe> code provided.
+                            4. Paste the code below, replacing this comment and the placeholder text div.
+                        -->
+                        <div class="video-placeholder-text">
+                            Your Video Embed (16:9) Goes Here
+                            <br>
+                            (Replace this box with your iframe code)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-section">
+                    <h2>Deep Dive: AI-Powered Search</h2>
+                    <p>Explore the power of natural language search and see how AiCatalog helps you find the exact photo you're looking for, no matter how it's tagged.</p>
+                    <div class="video-placeholder">
+                        <!-- 
+                            TO EMBED YOUR VIDEO:
+                            1. Go to your video on YouTube or Vimeo.
+                            2. Click the "Share" button, then "Embed".
+                            3. Copy the <iframe> code provided.
+                            4. Paste the code below, replacing this comment and the placeholder text div.
+                        -->
+                        <div class="video-placeholder-text">
+                            Your Second Video Embed (16:9) Goes Here
+                            <br>
+                            (Replace this box with your iframe code)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Anand's Photography. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
