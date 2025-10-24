@@ -201,4 +201,4 @@ We welcome contributions to improve AI Image Tagger:
 
 *For the latest updates and support, visit our website or contact us at lists@anands.net*
 
-**Created by Anand's Photography • Powered by Google Gemini AI**
+**Created by Anand's Photography**
