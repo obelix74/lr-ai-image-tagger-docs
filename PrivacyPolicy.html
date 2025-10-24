@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AiCatalog Privacy Policy</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #007AFF;
+            border-bottom: 2px solid #007AFF;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #555;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #666;
+            margin-top: 20px;
+        }
+        .highlight {
+            background-color: #e8f4f8;
+            padding: 15px;
+            border-left: 4px solid #007AFF;
+            margin: 20px 0;
+        }
+        .date {
+            color: #999;
+            font-style: italic;
+        }
+        ul {
+            padding-left: 25px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #999;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AiCatalog Privacy Policy</h1>
+        <p class="date">Last Updated: October 24, 2025</p>
+
+        <div class="highlight">
+            <strong>Privacy-First Design:</strong> AiCatalog is designed with your privacy as a top priority. All your photos, catalogs, and metadata are stored exclusively on your Mac. We do not collect, transmit, or store any of your personal data on external servers.
+        </div>
+
+        <h2>1. Data Storage and Processing</h2>
+
+        <h3>1.1 Local Storage Only</h3>
+        <p>AiCatalog stores all data locally on your Mac:</p>
+        <ul>
+            <li><strong>Photo Catalogs:</strong> Stored in <code>~/Documents/AiCatalog Catalogs/</code></li>
+            <li><strong>Proxy Images:</strong> Stored in <code>~/Library/Application Support/Proxies/</code></li>
+            <li><strong>Application Preferences:</strong> Stored in standard macOS preferences location</li>
+            <li><strong>API Keys:</strong> Securely stored in macOS Keychain (never in plain text)</li>
+        </ul>
+        <p>Your original photos remain in their original locations and are never moved or modified without your explicit action.</p>
+
+        <h3>1.2 No Cloud Storage</h3>
+        <p>AiCatalog does not:</p>
+        <ul>
+            <li>Upload your photos to any cloud service</li>
+            <li>Store your catalogs on external servers</li>
+            <li>Transmit your personal data to our servers</li>
+            <li>Require an account or login</li>
+            <li>Track your usage or behavior</li>
+        </ul>
+
+        <h2>2. AI Features (Optional)</h2>
+
+        <h3>2.1 Third-Party AI Services</h3>
+        <p>AiCatalog offers optional AI-powered features for automatic photo tagging and metadata generation. These features are:</p>
+        <ul>
+            <li><strong>Completely Optional:</strong> You choose when to use them</li>
+            <li><strong>User-Controlled:</strong> You provide your own API keys</li>
+            <li><strong>On-Demand Only:</strong> Photos are only sent when you explicitly request AI analysis</li>
+        </ul>
+
+        <h3>2.2 Supported AI Providers</h3>
+        <p>If you choose to use AI features, you may connect to:</p>
+        <ul>
+            <li><strong>Google Gemini:</strong> Google's privacy policy applies when using their API</li>
+            <li><strong>OpenAI GPT-4:</strong> OpenAI's privacy policy applies when using their API</li>
+            <li><strong>Ollama (Local):</strong> Completely local AI processing with no external data transmission</li>
+        </ul>
+        <p><strong>Important:</strong> When using Google Gemini or OpenAI, your selected photos are temporarily sent to these services for analysis. Please review their respective privacy policies:</p>
+        <ul>
+            <li><a href="https://policies.google.com/privacy">Google Privacy Policy</a></li>
+            <li><a href="https://openai.com/policies/privacy-policy">OpenAI Privacy Policy</a></li>
+        </ul>
+
+        <h3>2.3 Local AI Processing</h3>
+        <p>When using Ollama for AI features, all processing happens locally on your Mac with no internet connection required.</p>
+
+        <h2>3. Metadata and EXIF Data</h2>
+        <p>AiCatalog reads and writes standard photo metadata (EXIF, IPTC, XMP) directly to your photo files or XMP sidecar files. This metadata includes:</p>
+        <ul>
+            <li>Camera settings (aperture, shutter speed, ISO, etc.)</li>
+            <li>GPS location data (if present in your photos)</li>
+            <li>Keywords and descriptions you add</li>
+            <li>Ratings and color labels</li>
+        </ul>
+        <p>All metadata operations are performed locally on your Mac. Metadata is never transmitted to external services unless you explicitly use AI features as described above.</p>
+
+        <h2>4. No Analytics or Telemetry</h2>
+        <p>AiCatalog does not collect any analytics, telemetry, or usage data. We do not track:</p>
+        <ul>
+            <li>How you use the application</li>
+            <li>What photos you manage</li>
+            <li>Your system configuration</li>
+            <li>Crash reports (unless you manually submit them)</li>
+        </ul>
+
+        <h2>5. Network Access</h2>
+        <p>AiCatalog only accesses the internet when:</p>
+        <ul>
+            <li>You explicitly request AI analysis using Google Gemini or OpenAI</li>
+            <li>The app checks for software updates (optional)</li>
+        </ul>
+        <p>No other network activity occurs. The app functions completely offline.</p>
+
+        <h2>6. Third-Party Libraries</h2>
+        <p>AiCatalog uses the following open-source libraries:</p>
+        <ul>
+            <li><strong>GRDB.swift:</strong> Local SQLite database management (no network access)</li>
+            <li><strong>ExifTool:</strong> Local metadata reading/writing (no network access)</li>
+        </ul>
+        <p>These libraries operate entirely locally and do not transmit data.</p>
+
+        <h2>7. macOS Permissions</h2>
+        <p>AiCatalog may request the following macOS permissions:</p>
+        <ul>
+            <li><strong>Full Disk Access:</strong> To read and catalog your photos across your entire system</li>
+            <li><strong>Files and Folders Access:</strong> To access specific photo folders you select</li>
+        </ul>
+        <p>These permissions are used solely for local file access and never for data transmission.</p>
+
+        <h2>8. Data Security</h2>
+        <ul>
+            <li><strong>API Keys:</strong> Stored securely in macOS Keychain with system-level encryption</li>
+            <li><strong>Local Catalogs:</strong> Protected by your Mac's file system permissions and encryption (if FileVault is enabled)</li>
+            <li><strong>No External Storage:</strong> Your data never leaves your control</li>
+        </ul>
+
+        <h2>9. Data Retention and Deletion</h2>
+        <p>You have complete control over your data:</p>
+        <ul>
+            <li>Delete catalogs at any time from <code>~/Documents/AiCatalog Catalogs/</code></li>
+            <li>Delete proxy images from <code>~/Library/Application Support/Proxies/</code></li>
+            <li>Uninstall the app to remove all application data</li>
+            <li>Your original photos are never affected by AiCatalog operations unless you explicitly move or delete them</li>
+        </ul>
+
+        <h2>10. Children's Privacy</h2>
+        <p>AiCatalog does not collect any personal information from anyone, including children under 13. The app is designed for local use only.</p>
+
+        <h2>11. Changes to This Policy</h2>
+        <p>We may update this privacy policy from time to time. Any changes will be reflected in the app and on our website with an updated "Last Updated" date.</p>
+
+        <h2>12. Contact</h2>
+        <p>If you have questions about this privacy policy or AiCatalog's privacy practices, please contact:</p>
+        <p>
+            <strong>Email:</strong> <a href="mailto:support@aicatalog.app">support@aicatalog.app</a><br>
+            <strong>Website:</strong> <a href="https://aicatalog.app">https://aicatalog.app</a>
+        </p>
+
+        <h2>13. Your Rights</h2>
+        <p>Since all data is stored locally on your Mac:</p>
+        <ul>
+            <li>You have complete access to all your data at all times</li>
+            <li>You can modify or delete any data without restriction</li>
+            <li>You can export your data by copying catalog files</li>
+            <li>No data requests are necessary since we don't store your data</li>
+        </ul>
+
+        <div class="highlight">
+            <strong>Summary:</strong> Your privacy is fully protected. AiCatalog is a local-first application that keeps all your data on your Mac. Optional AI features are clearly indicated and only used when you explicitly request them with your own API keys.
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2025 AiCatalog. All rights reserved.</p>
+            <p>This privacy policy is effective as of the date listed above.</p>
+        </div>
+    </div>
+</body>
+</html>
