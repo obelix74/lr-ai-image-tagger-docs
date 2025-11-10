@@ -529,13 +529,85 @@
             </h2>
             
             <div style="max-width: 900px; margin: 0 auto;">
-                <!-- Version 6.2.0 -->
+                <!-- Version 6.4.0 -->
                 <div style="background: #f8f9fa; padding: 2rem; border-radius: 15px; margin-bottom: 2rem; border-left: 5px solid #28a745;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
                         <h3 style="color: #28a745; margin: 0; font-size: 1.5rem;">
-                            <i class="fas fa-bug"></i> Version 6.2.0 - Stability & Bug Reporting
+                            <i class="fas fa-sync-alt"></i> Version 6.4.0 - Retry Logic & Error Recovery
                         </h3>
                         <span style="background: #28a745; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;">LATEST</span>
+                    </div>
+                    <p style="color: #666; margin-bottom: 1rem; font-style: italic;">Released November 10, 2025 - Fixed critical "exits too quickly" issue with proper retry logic and exponential backoff</p>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div>
+                            <h4 style="color: #dc3545; margin-bottom: 0.5rem;"><i class="fas fa-bug"></i> Critical Bug Fixes</h4>
+                            <ul style="color: #555; padding-left: 1.5rem; margin: 0; font-size: 0.9rem;">
+                                <li><strong>Automatic Retry Logic:</strong> Fixed issue where quota/rate limit errors caused immediate failures</li>
+                                <li><strong>Exponential Backoff:</strong> Proper retry mechanism with 2s, 4s, 8s delays for temporary issues</li>
+                                <li><strong>Network Resilience:</strong> Network errors now properly retry instead of failing immediately</li>
+                                <li><strong>Processing Reliability:</strong> Plugin waits and retries when hitting API limits</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: #17a2b8; margin-bottom: 0.5rem;"><i class="fas fa-check-circle"></i> Enhancements</h4>
+                            <ul style="color: #555; padding-left: 1.5rem; margin: 0; font-size: 0.9rem;">
+                                <li><strong>Gemini API:</strong> Up to 3 retry attempts for quota/rate limit errors</li>
+                                <li><strong>OpenAI API:</strong> Enhanced error recovery with proper retry handling</li>
+                                <li><strong>Better Logging:</strong> Clear distinction between retriable warnings and permanent errors</li>
+                                <li><strong>Success Rate:</strong> Significantly improved reliability during rate limiting</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div style="background: #d4edda; padding: 1rem; border-radius: 8px; margin-top: 1rem; border-left: 3px solid #28a745;">
+                        <strong><i class="fas fa-check-circle"></i> User Impact:</strong>
+                        <span style="color: #666; margin-left: 0.5rem;"><strong>Before:</strong> Images would fail instantly when quota exceeded, appearing to "exit too quickly". <strong>After:</strong> Plugin waits and retries automatically, successfully processing images after API quota resets. Expect longer processing times during retries (up to ~14s of backoff delays) but much higher success rates.</span>
+                    </div>
+                </div>
+
+                <!-- Version 6.3.0 -->
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 15px; margin-bottom: 2rem; border-left: 5px solid #6c757d;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <h3 style="color: #6c757d; margin: 0; font-size: 1.3rem;">
+                            <i class="fas fa-tags"></i> Version 6.3.0 - Keyword Format Improvements
+                        </h3>
+                    </div>
+                    <p style="color: #666; margin-bottom: 1rem; font-style: italic;">Released November 10, 2025 - Enhanced keyword format validation and hierarchical keyword improvements</p>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div>
+                            <h4 style="color: #17a2b8; margin-bottom: 0.5rem;"><i class="fas fa-plus-circle"></i> Enhancements</h4>
+                            <ul style="color: #555; padding-left: 1.5rem; margin: 0; font-size: 0.9rem;">
+                                <li><strong>Keyword Format Validation:</strong> Explicit instructions ensure keywords are comma-separated strings</li>
+                                <li><strong>Hierarchical Keywords:</strong> Better prompt engineering for hierarchical keyword generation</li>
+                                <li><strong>Custom Prompt Support:</strong> Hierarchical instructions automatically appended when enabled</li>
+                                <li><strong>Robust Parsing:</strong> Improved comma-separated keyword string processing</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: #28a745; margin-bottom: 0.5rem;"><i class="fas fa-wrench"></i> Technical</h4>
+                            <ul style="color: #555; padding-left: 1.5rem; margin: 0; font-size: 0.9rem;">
+                                <li><strong>Gemini & OpenAI:</strong> Enhanced prompts with format validation notes</li>
+                                <li><strong>Format Enforcement:</strong> "IMPORTANT" directive preventing array responses</li>
+                                <li><strong>Fixed Issues:</strong> Resolved cases where AI returned arrays instead of strings</li>
+                                <li><strong>Hierarchical Separators:</strong> Consistent ' > ' separator application</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div style="background: #d1ecf1; padding: 1rem; border-radius: 8px; margin-top: 1rem; border-left: 3px solid #17a2b8;">
+                        <strong><i class="fas fa-info-circle"></i> What Changed:</strong>
+                        <span style="color: #666; margin-left: 0.5rem;">This release improves keyword format reliability by adding explicit validation instructions to AI prompts, ensuring keywords are returned as comma-separated strings rather than JSON arrays. Hierarchical keyword support is now more robust and consistent across all AI providers.</span>
+                    </div>
+                </div>
+
+                <!-- Version 6.2.0 -->
+                <div style="background: #f8f9fa; padding: 2rem; border-radius: 15px; margin-bottom: 2rem; border-left: 5px solid #6c757d;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <h3 style="color: #6c757d; margin: 0; font-size: 1.3rem;">
+                            <i class="fas fa-bug"></i> Version 6.2.0 - Stability & Bug Reporting
+                        </h3>
                     </div>
                     <p style="color: #666; margin-bottom: 1rem; font-style: italic;">Critical stability fixes for batch processing and new bug reporting feature</p>
 
