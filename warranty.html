@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="description"
+            content="Never lose track of your product warranties again. Extended Warranty automatically syncs across all your devices with iCloud."
+        />
+        <meta
+            name="keywords"
+            content="warranty tracker, product warranty, iCloud sync, warranty manager, iOS app"
+        />
+        <title>Extended Warranty - Never Miss a Warranty Again</title>
+
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            :root {
+                --primary: #007ba7;
+                --primary-dark: #006192;
+                --success: #34c759;
+                --danger: #ff3b30;
+                --text: #1d1d1f;
+                --text-secondary: #6e6e73;
+                --background: #fbfbfd;
+                --card-bg: #ffffff;
+            }
+
+            body {
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                    Oxygen, Ubuntu, Cantarell, sans-serif;
+                line-height: 1.6;
+                color: var(--text);
+                background-color: var(--background);
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 20px;
+            }
+
+            /* Header */
+            header {
+                background: rgba(255, 255, 255, 0.8);
+                backdrop-filter: blur(20px);
+                position: sticky;
+                top: 0;
+                z-index: 100;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            }
+
+            nav {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 20px 0;
+            }
+
+            .logo {
+                font-size: 24px;
+                font-weight: 700;
+                color: var(--primary);
+            }
+
+            .nav-links a {
+                margin-left: 30px;
+                text-decoration: none;
+                color: var(--text);
+                font-weight: 500;
+                transition: color 0.3s;
+            }
+
+            .nav-links a:hover {
+                color: var(--primary);
+            }
+
+            /* Hero Section */
+            .hero {
+                text-align: center;
+                padding: 100px 0;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+            }
+
+            .hero h1 {
+                font-size: 56px;
+                font-weight: 700;
+                margin-bottom: 20px;
+                line-height: 1.1;
+            }
+
+            .hero p {
+                font-size: 24px;
+                margin-bottom: 40px;
+                opacity: 0.95;
+                max-width: 700px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .cta-button {
+                display: inline-block;
+                padding: 16px 40px;
+                background: white;
+                color: var(--primary);
+                text-decoration: none;
+                border-radius: 12px;
+                font-weight: 600;
+                font-size: 18px;
+                transition:
+                    transform 0.2s,
+                    box-shadow 0.2s;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            }
+
+            .cta-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            }
+
+            .app-store-badge {
+                margin-top: 30px;
+            }
+
+            .app-store-badge img {
+                height: 50px;
+            }
+
+            /* Features Section */
+            .features {
+                padding: 100px 0;
+            }
+
+            .section-title {
+                text-align: center;
+                font-size: 48px;
+                font-weight: 700;
+                margin-bottom: 60px;
+                color: var(--text);
+            }
+
+            .features-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 40px;
+            }
+
+            .feature-card {
+                background: var(--card-bg);
+                padding: 40px;
+                border-radius: 20px;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+                transition:
+                    transform 0.3s,
+                    box-shadow 0.3s;
+            }
+
+            .feature-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            }
+
+            .feature-icon {
+                font-size: 48px;
+                margin-bottom: 20px;
+            }
+
+            .feature-card h3 {
+                font-size: 24px;
+                font-weight: 600;
+                margin-bottom: 15px;
+                color: var(--primary);
+            }
+
+            .feature-card p {
+                color: var(--text-secondary);
+                line-height: 1.8;
+            }
+
+            /* Screenshots Section */
+            .screenshots {
+                background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+                padding: 100px 0;
+            }
+
+            .screenshot-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 30px;
+                margin-top: 60px;
+                flex-wrap: wrap;
+            }
+
+            .screenshot-placeholder {
+                width: 300px;
+                height: 650px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                border-radius: 40px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 18px;
+                font-weight: 600;
+                border: 8px solid #1d1d1f;
+            }
+
+            /* Benefits Section */
+            .benefits {
+                padding: 100px 0;
+            }
+
+            .benefits-list {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 30px;
+                margin-top: 60px;
+            }
+
+            .benefit-item {
+                display: flex;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .benefit-icon {
+                color: var(--success);
+                font-size: 24px;
+                margin-top: 5px;
+            }
+
+            .benefit-item h4 {
+                font-size: 20px;
+                margin-bottom: 8px;
+                color: var(--text);
+            }
+
+            .benefit-item p {
+                color: var(--text-secondary);
+            }
+
+            /* Testimonials */
+            .testimonials {
+                background: var(--card-bg);
+                padding: 100px 0;
+            }
+
+            .testimonial-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 40px;
+                margin-top: 60px;
+            }
+
+            .testimonial {
+                padding: 30px;
+                background: var(--background);
+                border-radius: 16px;
+                border-left: 4px solid var(--primary);
+            }
+
+            .testimonial-text {
+                font-style: italic;
+                color: var(--text);
+                margin-bottom: 20px;
+                line-height: 1.8;
+            }
+
+            .testimonial-author {
+                font-weight: 600;
+                color: var(--primary);
+            }
+
+            /* CTA Section */
+            .cta-section {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 100px 0;
+                text-align: center;
+            }
+
+            .cta-section h2 {
+                font-size: 42px;
+                font-weight: 700;
+                margin-bottom: 20px;
+            }
+
+            .cta-section p {
+                font-size: 20px;
+                margin-bottom: 40px;
+                opacity: 0.95;
+            }
+
+            /* Footer */
+            footer {
+                background: #1d1d1f;
+                color: white;
+                padding: 60px 0 30px;
+            }
+
+            .footer-content {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 40px;
+                margin-bottom: 40px;
+            }
+
+            .footer-section h3 {
+                font-size: 18px;
+                margin-bottom: 20px;
+            }
+
+            .footer-section ul {
+                list-style: none;
+            }
+
+            .footer-section ul li {
+                margin-bottom: 10px;
+            }
+
+            .footer-section a {
+                color: rgba(255, 255, 255, 0.7);
+                text-decoration: none;
+                transition: color 0.3s;
+            }
+
+            .footer-section a:hover {
+                color: white;
+            }
+
+            .footer-bottom {
+                text-align: center;
+                padding-top: 30px;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                color: rgba(255, 255, 255, 0.5);
+            }
+
+            /* Responsive */
+            @media (max-width: 768px) {
+                .hero h1 {
+                    font-size: 36px;
+                }
+
+                .hero p {
+                    font-size: 18px;
+                }
+
+                .section-title {
+                    font-size: 32px;
+                }
+
+                .nav-links {
+                    display: none;
+                }
+
+                .screenshot-placeholder {
+                    width: 250px;
+                    height: 540px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Header -->
+        <header>
+            <nav class="container">
+                <div class="logo">Extended Warranty</div>
+                <div class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#benefits">Benefits</a>
+                    <a href="#testimonials">Reviews</a>
+                    <a href="#download">Download</a>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <h1>Never Miss a Warranty Again</h1>
+                <p>
+                    Track all your product warranties in one beautiful app. Sync
+                    automatically across all your devices with iCloud.
+                </p>
+                <a href="#download" class="cta-button">Download Now</a>
+                <div class="app-store-badge">
+                    <a href="https://apps.apple.com" target="_blank">
+                        <img
+                            src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83&amp;releaseDate=1277856000"
+                            alt="Download on the App Store"
+                        />
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features">
+            <div class="container">
+                <h2 class="section-title">Powerful Features</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">☁️</div>
+                        <h3>Automatic iCloud Sync</h3>
+                        <p>
+                            Your warranties automatically sync across all your
+                            Apple devices. Add on your iPhone, view on your iPad
+                            or Mac.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">⏰</div>
+                        <h3>Expiration Tracking</h3>
+                        <p>
+                            See at a glance which warranties are valid (green)
+                            and which have expired (red). Never miss an
+                            expiration date.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📝</div>
+                        <h3>Complete Product Details</h3>
+                        <p>
+                            Store product names, serial numbers, warranty
+                            providers, contact info, contract numbers, and
+                            personal notes.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <h3>Powerful Search</h3>
+                        <p>
+                            Quickly find any warranty with instant search. No
+                            more digging through emails or filing cabinets.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🎨</div>
+                        <h3>Modern Interface</h3>
+                        <p>
+                            Built with iOS 17 for a beautiful, native experience
+                            that feels right at home on your device.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <h3>Privacy First</h3>
+                        <p>
+                            Your data stays private. Everything syncs through
+                            your personal iCloud. No ads, no tracking.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screenshots Section -->
+        <section class="screenshots">
+            <div class="container">
+                <h2 class="section-title">Beautiful Design</h2>
+                <div class="screenshot-container">
+                    <div class="screenshot-placeholder">Warranty List</div>
+                    <div class="screenshot-placeholder">Warranty Details</div>
+                    <div class="screenshot-placeholder">Add Warranty</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefits Section -->
+        <section id="benefits" class="benefits">
+            <div class="container">
+                <h2 class="section-title">Perfect For</h2>
+                <div class="benefits-list">
+                    <div class="benefit-item">
+                        <div class="benefit-icon">✓</div>
+                        <div>
+                            <h4>Homeowners</h4>
+                            <p>
+                                Track appliance warranties and service contracts
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="benefit-item">
+                        <div class="benefit-icon">✓</div>
+                        <div>
+                            <h4>Tech Enthusiasts</h4>
+                            <p>Manage warranties for all your devices</p>
+                        </div>
+                    </div>
+
+                    <div class="benefit-item">
+                        <div class="benefit-icon">✓</div>
+                        <div>
+                            <h4>Property Managers</h4>
+                            <p>Keep track of equipment across properties</p>
+                        </div>
+                    </div>
+
+                    <div class="benefit-item">
+                        <div class="benefit-icon">✓</div>
+                        <div>
+                            <h4>Small Businesses</h4>
+                            <p>Manage warranties for office equipment</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section id="testimonials" class="testimonials">
+            <div class="container">
+                <h2 class="section-title">What Users Love</h2>
+                <div class="testimonial-grid">
+                    <div class="testimonial">
+                        <p class="testimonial-text">
+                            "I used to keep warranty cards in a drawer and could
+                            never find them when I needed them. This app is a
+                            game changer!"
+                        </p>
+                        <p class="testimonial-author">— Sarah M.</p>
+                    </div>
+
+                    <div class="testimonial">
+                        <p class="testimonial-text">
+                            "The iCloud sync is perfect. I add warranties on my
+                            phone and my spouse can see them on their device
+                            too."
+                        </p>
+                        <p class="testimonial-author">— Michael T.</p>
+                    </div>
+
+                    <div class="testimonial">
+                        <p class="testimonial-text">
+                            "Simple, clean, and does exactly what I need. No
+                            complicated features I'll never use."
+                        </p>
+                        <p class="testimonial-author">— Jennifer L.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section id="download" class="cta-section">
+            <div class="container">
+                <h2>Start Protecting Your Investments Today</h2>
+                <p>
+                    Download Extended Warranty and never worry about lost
+                    warranty information again.
+                </p>
+                <a href="https://apps.apple.com" class="cta-button"
+                    >Download on the App Store</a
+                >
+                <div class="app-store-badge">
+                    <a href="https://apps.apple.com" target="_blank">
+                        <img
+                            src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/white/en-us?size=250x83&amp;releaseDate=1277856000"
+                            alt="Download on the App Store"
+                        />
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>Extended Warranty</h3>
+                        <p>
+                            Never miss a warranty again. Track all your product
+                            warranties in one beautiful app.
+                        </p>
+                    </div>
+
+                    <div class="footer-section">
+                        <h3>Product</h3>
+                        <ul>
+                            <li><a href="#features">Features</a></li>
+                            <li><a href="#benefits">Benefits</a></li>
+                            <li><a href="#download">Download</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-section">
+                        <h3>Support</h3>
+                        <ul>
+                            <li>
+                                <a href="mailto:lists@anands.net"
+                                    >Contact Support</a
+                                >
+                            </li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-section">
+                        <h3>Requirements</h3>
+                        <ul>
+                            <li>iOS 17.0 or later</li>
+                            <li>iCloud account</li>
+                            <li>iPhone, iPad, or Mac</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>&copy; 2024 Extended Warranty. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
