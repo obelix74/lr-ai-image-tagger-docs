@@ -355,9 +355,9 @@
             <h1>Supercharge Lightroom <br><span>with AI Tagging</span></h1>
             <p>Automatically tag your photos with AI-powered captions, descriptions, and keywords using Google Gemini
                 AI, OpenAI GPT-4V, or local Ollama models directly in Adobe Lightroom Classic.</p>
-            <a href="https://github.com/obelix74/lr-ai-image-tagger-docs/raw/refs/heads/main/dist/ai-lr-tagimg-v6.4.0.zip"
+            <a href="https://github.com/obelix74/lr-ai-image-tagger-docs/raw/refs/heads/main/dist/ai-lr-tagimg-v6.5.0.zip"
                 class="cta-button">
-                <i class="fas fa-download"></i> Download Plugin v6.4.0
+                <i class="fas fa-download"></i> Download Plugin v6.5.0
             </a>
         </div>
     </section>
@@ -466,11 +466,27 @@
             <h2 class="section-title">Release Notes</h2>
             <div style="max-width: 900px; margin: 0 auto;">
 
-                <!-- v6.4.0 -->
+                <!-- v6.5.0 -->
                 <div class="release-note">
                     <div class="release-header">
-                        <h3>Version 6.4.0 - Retry Logic & Error Recovery</h3>
+                        <h3>Version 6.5.0 - Keyword Cleanup & Hierarchy Fixes</h3>
                         <span class="version-tag">LATEST</span>
+                    </div>
+                    <p style="color: var(--text-secondary); margin-bottom: 16px;">Released November 23, 2025 - Fixed
+                        issues with keyword prefixes and hierarchical keyword handling.</p>
+                    <ul style="padding-left: 20px; color: var(--text-secondary);">
+                        <li><strong>Keyword Cleanup:</strong> Fixed issue where "AI:" prefix appeared in keywords</li>
+                        <li><strong>Duplicate Removal:</strong> Improved deduplication of keywords when hierarchical
+                            keywords are disabled</li>
+                        <li><strong>Hierarchy Control:</strong> Fixed issue where hierarchical keywords were returned
+                            even when disabled</li>
+                    </ul>
+                </div>
+
+                <!-- v6.4.0 -->
+                <div class="release-note" style="border-color: var(--secondary);">
+                    <div class="release-header">
+                        <h3>Version 6.4.0 - Retry Logic & Error Recovery</h3>
                     </div>
                     <p style="color: var(--text-secondary); margin-bottom: 16px;">Released November 10, 2025 - Fixed
                         critical "exits too quickly" issue with proper retry logic and exponential backoff.</p>
@@ -506,7 +522,7 @@
     <section id="download" class="content-section" style="text-align: center;">
         <div class="container">
             <h2 class="section-title">Ready to Transform Your Workflow?</h2>
-            <a href="https://github.com/obelix74/lr-ai-image-tagger-docs/raw/refs/heads/main/dist/ai-lr-tagimg-v6.4.0.zip"
+            <a href="https://github.com/obelix74/lr-ai-image-tagger-docs/raw/refs/heads/main/dist/ai-lr-tagimg-v6.5.0.zip"
                 class="cta-button">
                 <i class="fas fa-download"></i> Download Latest Version
             </a>
