@@ -1,12 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="StreakCycle - Beautiful habit tracker for iOS. Build better habits with visual tracking, flexible scheduling, and powerful insights.">
-    <meta name="keywords" content="habit tracker, iOS app, streak counter, goals, productivity, wellness, health tracker">
     <title>StreakCycle - Beautiful Habit Tracker for iOS</title>
+    <meta name="description"
+        content="Build better habits with visual tracking, flexible scheduling, and powerful insights. Syncs seamlessly across all your Apple devices.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --primary: #f59e0b;
+            --primary-dark: #d97706;
+            --secondary: #ec4899;
+            --accent: #8b5cf6;
+            --background: #0f172a;
+            --surface: #1e293b;
+            --surface-hover: #334155;
+            --text: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border: #334155;
+            --gradient-main: linear-gradient(135deg, #f59e0b 0%, #ec4899 100%);
+            --shadow-lg: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
+            --shadow-glow: 0 0 20px rgba(245, 158, 11, 0.3);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -14,543 +37,373 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
             line-height: 1.6;
-            color: #333;
-            background: #f8f9fa;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
         }
 
         /* Header */
         header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 60px 0;
-            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 20px 0;
         }
 
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        /* Hero Section */
         .hero {
-            padding: 40px 0;
+            padding: 180px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1000px;
+            height: 1000px;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            z-index: -1;
+            pointer-events: none;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            font-weight: 700;
+            font-size: 4rem;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
         }
 
-        .hero .tagline {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            opacity: 0.95;
+        .hero h1 span {
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .download-btn {
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .cta-button {
             display: inline-block;
-            background: white;
-            color: #667eea;
-            padding: 15px 40px;
-            border-radius: 30px;
-            text-decoration: none;
+            background: var(--gradient-main);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 50px;
             font-weight: 600;
             font-size: 1.1rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: var(--shadow-glow);
+            transition: all 0.3s ease;
         }
 
-        .download-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(245, 158, 11, 0.5);
         }
 
-        /* Features Section */
+        /* Features Grid */
         .features {
-            padding: 80px 0;
-            background: white;
+            padding: 100px 0;
         }
 
         .section-title {
             text-align: center;
             font-size: 2.5rem;
             margin-bottom: 60px;
-            color: #667eea;
         }
 
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
+            gap: 32px;
         }
 
         .feature-card {
-            padding: 30px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 15px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 32px;
+            transition: all 0.3s ease;
         }
 
         .feature-card:hover {
+            border-color: var(--primary);
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
         }
 
         .feature-icon {
-            font-size: 3rem;
+            font-size: 2.5rem;
             margin-bottom: 20px;
-            display: block;
+            display: inline-block;
+            background: rgba(245, 158, 11, 0.1);
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            border-radius: 16px;
+            color: var(--primary);
         }
 
         .feature-card h3 {
             font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #667eea;
+            margin-bottom: 12px;
         }
 
-        .feature-card ul {
-            list-style: none;
-            padding-left: 0;
+        .feature-card p {
+            color: var(--text-secondary);
         }
 
-        .feature-card li {
-            padding: 8px 0;
-            padding-left: 25px;
-            position: relative;
-        }
-
-        .feature-card li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #667eea;
-            font-weight: bold;
-        }
-
-        /* Screenshots */
+        /* Screenshots Section */
         .screenshots {
-            padding: 80px 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-align: center;
-        }
-
-        .screenshots .section-title {
-            color: white;
+            padding: 100px 0;
+            background: rgba(30, 41, 59, 0.5);
         }
 
         .screenshot-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            gap: 40px;
             margin-top: 40px;
         }
 
         .screenshot-placeholder {
-            background: rgba(255,255,255,0.1);
-            border-radius: 20px;
-            padding: 20px;
-            min-height: 400px;
+            aspect-ratio: 9/19.5;
+            /* Mobile aspect ratio */
+            background: var(--surface);
+            border: 2px dashed var(--border);
+            border-radius: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255,255,255,0.2);
-        }
-
-        /* Support & FAQ */
-        .support {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .faq {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            margin-bottom: 30px;
-            padding: 25px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            border-left: 4px solid #667eea;
-        }
-
-        .faq-item h3 {
-            color: #667eea;
-            margin-bottom: 10px;
-            font-size: 1.3rem;
-        }
-
-        /* Privacy */
-        .privacy {
-            padding: 80px 0;
-            background: #f8f9fa;
-        }
-
-        .privacy-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .privacy-content h3 {
-            color: #667eea;
-            margin-top: 30px;
-            margin-bottom: 15px;
-        }
-
-        .privacy-content ul {
-            margin-left: 20px;
-            margin-bottom: 20px;
-        }
-
-        /* Contact */
-        .contact {
-            padding: 80px 0;
-            background: white;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
             text-align: center;
+            padding: 20px;
         }
 
-        .contact-info {
-            margin-top: 40px;
-        }
-
-        .contact-info a {
-            color: #667eea;
-            text-decoration: none;
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-
-        .contact-info a:hover {
-            text-decoration: underline;
+        .screenshot-placeholder:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(245, 158, 11, 0.05);
         }
 
         /* Footer */
         footer {
-            background: #2d3748;
-            color: white;
-            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            padding: 60px 0;
             text-align: center;
+            color: var(--text-secondary);
         }
 
         footer a {
-            color: #667eea;
-            text-decoration: none;
+            color: var(--text);
+            margin: 0 12px;
         }
 
         footer a:hover {
-            text-decoration: underline;
+            color: var(--primary);
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2.5rem;
             }
 
-            .hero .tagline {
-                font-size: 1.2rem;
+            .nav-links {
+                display: none;
             }
 
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .features-grid,
             .screenshot-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
             }
-        }
-
-        /* Highlight boxes */
-        .highlight-box {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px;
-            border-radius: 15px;
-            margin: 40px 0;
-            text-align: center;
-        }
-
-        .highlight-box h3 {
-            font-size: 2rem;
-            margin-bottom: 20px;
         }
     </style>
 </head>
+
 <body>
-    <!-- Hero Section -->
     <header>
-        <div class="container">
-            <div class="hero">
-                <h1>StreakCycle</h1>
-                <p class="tagline">Beautiful Habit Tracker for iOS</p>
-                <p style="font-size: 1.2rem; margin-bottom: 30px;">Transform your life, one habit at a time. Syncs across all your Apple devices via iCloud.</p>
-                <a href="https://apps.apple.com/us/app/streakcycle/id6755407906" class="download-btn">Download on the App Store</a>
+        <nav class="container">
+            <a href="index.html" class="logo">StreakCycle</a>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#screenshots">Screenshots</a>
+                <a href="#privacy">Privacy</a>
+                <a href="mailto:lists@anands.net">Support</a>
             </div>
-        </div>
+            <a href="https://apps.apple.com/us/app/streakcycle/id6755407906" class="cta-button"
+                style="padding: 10px 24px; font-size: 0.9rem;">Download</a>
+        </nav>
     </header>
 
-    <!-- Features Section -->
-    <section class="features">
+    <section class="hero">
+        <div class="container">
+            <h1>Transform Your Life, <br><span>One Habit at a Time</span></h1>
+            <p>Beautiful habit tracker with visual tracking, flexible scheduling, and powerful insights. Syncs
+                seamlessly across all your Apple devices.</p>
+            <a href="https://apps.apple.com/us/app/streakcycle/id6755407906" class="cta-button">
+                <i class="fab fa-apple"></i> Download on App Store
+            </a>
+        </div>
+    </section>
+
+    <section id="features" class="features">
         <div class="container">
             <h2 class="section-title">Powerful Features</h2>
             <div class="features-grid">
                 <div class="feature-card">
-                    <span class="feature-icon">✓</span>
+                    <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
                     <h3>Track Any Habit</h3>
-                    <ul>
-                        <li>Yes/No habits for daily routines</li>
-                        <li>Numeric habits with custom units</li>
-                        <li>Track water intake, exercise duration, reading pages</li>
-                        <li>Beautiful progress visualization</li>
-                    </ul>
+                    <p>Track Yes/No habits or numeric goals (water, pages read). Customize units and targets to fit your
+                        lifestyle.</p>
                 </div>
-
                 <div class="feature-card">
-                    <span class="feature-icon">📅</span>
+                    <div class="feature-icon"><i class="fas fa-calendar-alt"></i></div>
                     <h3>Flexible Scheduling</h3>
-                    <ul>
-                        <li>Daily habits for consistency</li>
-                        <li>Specific days of the week</li>
-                        <li>X times per week (e.g., "3x per week")</li>
-                        <li>Every X days for custom intervals</li>
-                    </ul>
+                    <p>Set habits for specific days, X times per week, or every X days. Perfect for workouts or
+                        irregular routines.</p>
                 </div>
-
                 <div class="feature-card">
-                    <span class="feature-icon">📊</span>
+                    <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
                     <h3>Visual Insights</h3>
-                    <ul>
-                        <li>Stunning gradient-based UI</li>
-                        <li>Live progress charts</li>
-                        <li>Calendar heat maps</li>
-                        <li>Streak tracking with flame icons</li>
-                        <li>Habit strength percentage</li>
-                    </ul>
+                    <p>Stay motivated with stunning gradient charts, calendar heat maps, and streak tracking flame
+                        icons.</p>
                 </div>
-
                 <div class="feature-card">
-                    <span class="feature-icon">🎨</span>
+                    <div class="feature-icon"><i class="fas fa-palette"></i></div>
                     <h3>Personalization</h3>
-                    <ul>
-                        <li>12 vibrant color themes</li>
-                        <li>50+ SF Symbols icons</li>
-                        <li>Organized by category</li>
-                        <li>Beautiful gradient backgrounds</li>
-                    </ul>
+                    <p>Choose from 12 vibrant color themes and 50+ icons. Make your habit tracker truly yours.</p>
                 </div>
-
                 <div class="feature-card">
-                    <span class="feature-icon">📱</span>
+                    <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
                     <h3>Quick Access</h3>
-                    <ul>
-                        <li>Home screen widgets</li>
-                        <li>Siri Shortcuts integration</li>
-                        <li>"Hey Siri, show today's habits"</li>
-                        <li>Native iOS design</li>
-                    </ul>
+                    <p>Use Home Screen widgets and Siri Shortcuts ("Hey Siri, show today's habits") for instant access.
+                    </p>
                 </div>
-
                 <div class="feature-card">
-                    <span class="feature-icon">☁️</span>
+                    <div class="feature-icon"><i class="fas fa-cloud"></i></div>
                     <h3>iCloud Sync</h3>
-                    <ul>
-                        <li>Automatic sync across devices</li>
-                        <li>iPhone, iPad, and Mac</li>
-                        <li>Real-time updates</li>
-                        <li>No manual backup needed</li>
-                    </ul>
-                </div>
-
-                <div class="feature-card">
-                    <span class="feature-icon">🔒</span>
-                    <h3>Privacy Focused</h3>
-                    <ul>
-                        <li>Private iCloud sync</li>
-                        <li>No account required</li>
-                        <li>No ads or tracking</li>
-                        <li>Your habits, your data</li>
-                    </ul>
+                    <p>Your data syncs automatically and privately across iPhone, iPad, and Mac via iCloud.</p>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="highlight-box">
-                <h3>Perfect For</h3>
-                <p style="font-size: 1.1rem;">
-                    Morning routines • Fitness goals • Reading habits • Meditation practice<br>
-                    Water intake • Learning new skills • Productivity • Wellness tracking
+    <section id="screenshots" class="screenshots">
+        <div class="container">
+            <h2 class="section-title">See It In Action</h2>
+            <div class="screenshot-grid">
+                <div class="screenshot-placeholder">
+                    <i class="fas fa-list-ul fa-2x" style="margin-bottom: 10px;"></i><br>
+                    Habit List View
+                </div>
+                <div class="screenshot-placeholder">
+                    <i class="fas fa-chart-bar fa-2x" style="margin-bottom: 10px;"></i><br>
+                    Progress Charts
+                </div>
+                <div class="screenshot-placeholder">
+                    <i class="fas fa-plus-circle fa-2x" style="margin-bottom: 10px;"></i><br>
+                    Add Habit Screen
+                </div>
+                <div class="screenshot-placeholder">
+                    <i class="fas fa-cog fa-2x" style="margin-bottom: 10px;"></i><br>
+                    Settings & Themes
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="privacy" class="features" style="background: var(--surface);">
+        <div class="container">
+            <h2 class="section-title">Privacy First</h2>
+            <div style="max-width: 800px; margin: 0 auto; text-align: center; color: var(--text-secondary);">
+                <p style="font-size: 1.1rem; margin-bottom: 20px;">
+                    StreakCycle does not collect, store, or share any personal data. We don't use analytics, ads, or
+                    third-party tracking.
+                </p>
+                <p>
+                    All your data is stored securely on your device and synced privately via your personal iCloud
+                    account. Your habits are your business, not ours.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Screenshots Section -->
-    <section class="screenshots">
-        <div class="container">
-            <h2 class="section-title">See It In Action</h2>
-            <div class="screenshot-grid">
-                <div class="screenshot-placeholder">
-                    <p>Colorful Habit List<br>with Streaks</p>
-                </div>
-                <div class="screenshot-placeholder">
-                    <p>Beautiful<br>Icon Selection</p>
-                </div>
-                <div class="screenshot-placeholder">
-                    <p>Numeric Habit<br>Tracking</p>
-                </div>
-                <div class="screenshot-placeholder">
-                    <p>Progress Charts<br>& Calendar</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Support & FAQ -->
-    <section class="support" id="support">
-        <div class="container">
-            <h2 class="section-title">Support & FAQ</h2>
-            <div class="faq">
-                <div class="faq-item">
-                    <h3>How do I create a habit?</h3>
-                    <p>Tap the "+" button in the top right corner. Choose a name, icon, and color for your habit. Select between Yes/No or Numeric type. For numeric habits, set a target value and unit (like "8 glasses" or "30 minutes").</p>
-                </div>
-
-                <div class="faq-item">
-                    <h3>What's the difference between Yes/No and Numeric habits?</h3>
-                    <p>Yes/No habits are simple checkmarks - you either did it or didn't (like "Meditated today"). Numeric habits track measurable values with progress bars (like "Drank 6 of 8 glasses of water").</p>
-                </div>
-
-                <div class="faq-item">
-                    <h3>How does "X times per week" work?</h3>
-                    <p>This flexible option lets you set a weekly goal without specifying exact days. For example, "Workout 3 times per week" - you can complete it on any 3 days each week. Progress resets every Sunday.</p>
-                </div>
-
-                <div class="faq-item">
-                    <h3>How is habit strength calculated?</h3>
-                    <p>Habit strength shows your consistency over the last 30 days as a percentage. If you completed a daily habit 24 out of 30 days, your strength is 80%.</p>
-                </div>
-
-                <div class="faq-item">
-                    <h3>Can I use widgets?</h3>
-                    <p>Yes! Long press on your home screen, tap the "+" button, search for StreakCycle, and add a widget. Widgets show your habits at a glance without opening the app.</p>
-                </div>
-
-                <div class="faq-item">
-                    <h3>Does StreakCycle sync across devices?</h3>
-                    <p>Yes! StreakCycle automatically syncs your habits across all your Apple devices via iCloud. Sign in with the same iCloud account on your iPhone, iPad, and Mac, and your data stays in sync in real-time.</p>
-                </div>
-
-                <div class="faq-item">
-                    <h3>Is my data private?</h3>
-                    <p>Absolutely! Your habit data is synced privately via your iCloud account using Apple's secure CloudKit framework. We don't collect any data, don't require a separate account, and don't use analytics or tracking. Your data is only accessible by you.</p>
-                </div>
-
-                <div class="faq-item">
-                    <h3>What iOS version do I need?</h3>
-                    <p>StreakCycle requires iOS 17.0 or later. It works on both iPhone and iPad.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Privacy Policy -->
-    <section class="privacy" id="privacy">
-        <div class="container">
-            <h2 class="section-title">Privacy Policy</h2>
-            <div class="privacy-content">
-                <p><strong>Last Updated: January 2025</strong></p>
-
-                <h3>Data Collection</h3>
-                <p>StreakCycle does not collect, store, or share any personal data with third parties. We are committed to your privacy.</p>
-
-                <h3>iCloud Sync</h3>
-                <p>All habit data is synced privately via your iCloud account using Apple's CloudKit framework. This includes:</p>
-                <ul>
-                    <li>Habit names and descriptions</li>
-                    <li>Completion logs and values</li>
-                    <li>Icons, colors, and preferences</li>
-                    <li>Reminders and scheduling settings</li>
-                </ul>
-
-                <h3>No Third-Party Services</h3>
-                <p>StreakCycle does not use:</p>
-                <ul>
-                    <li>Analytics or tracking services</li>
-                    <li>Advertising networks</li>
-                    <li>Cloud storage or sync services</li>
-                    <li>Social media integrations</li>
-                </ul>
-
-                <h3>Permissions</h3>
-                <p>StreakCycle may request the following permissions:</p>
-                <ul>
-                    <li><strong>Notifications:</strong> To remind you about your habits (optional)</li>
-                    <li><strong>Siri & Shortcuts:</strong> To enable voice commands (optional)</li>
-                </ul>
-
-                <h3>Data Security</h3>
-                <p>Your data is securely synced via iCloud and protected by Apple's encryption. The sync:</p>
-                <ul>
-                    <li>Works automatically across all your Apple devices</li>
-                    <li>Uses end-to-end encryption through iCloud</li>
-                    <li>Only accessible by you through your iCloud account</li>
-                    <li>No data ever sent to third-party servers</li>
-                </ul>
-
-                <p>We recommend:</p>
-                <ul>
-                    <li>Using a passcode or biometric lock on your device</li>
-                    <li>Keeping your iOS version up to date</li>
-                    <li>Ensuring you're signed into iCloud for sync to work</li>
-                </ul>
-
-                <h3>Children's Privacy</h3>
-                <p>StreakCycle is safe for users of all ages. We do not collect any personal information from anyone, including children under 13.</p>
-
-                <h3>Changes to Privacy Policy</h3>
-                <p>Any updates to this privacy policy will be posted on this page and in the app.</p>
-
-                <h3>Contact</h3>
-                <p>If you have questions about privacy, please contact us at the email below.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <p style="font-size: 1.2rem; margin-bottom: 20px;">
-                Have questions, feedback, or need support?<br>We'd love to hear from you!
-            </p>
-            <div class="contact-info">
-                <p><a href="mailto:lists@anands.net">lists@anands.net</a></p>
-            </div>
-            <p style="margin-top: 30px; color: #666;">
-                We typically respond within 24-48 hours
-            </p>
-        </div>
-    </section>
-
-    <!-- Footer -->
     <footer>
         <div class="container">
             <p>&copy; 2025 StreakCycle. All rights reserved.</p>
-            <p style="margin-top: 10px;">
-                <a href="#privacy">Privacy Policy</a> •
-                <a href="#support">Support</a> •
-                <a href="#contact">Contact</a>
-            </p>
-            <p style="margin-top: 20px; font-size: 0.9rem; opacity: 0.8;">
-                Built with ❤️ for iOS
-            </p>
+            <div style="margin-top: 20px;">
+                <a href="index.html">Home</a>
+                <a href="mailto:lists@anands.net">Support</a>
+                <a href="#">Privacy Policy</a>
+            </div>
         </div>
     </footer>
 </body>
+
 </html>

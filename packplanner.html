@@ -1,10 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PackPlanner - The Ultimate Hiking Gear Organizer</title>
+    <meta name="description"
+        content="Optimize your hiking gear, reduce pack weight, and plan perfect trips. The essential app for hikers and backpackers.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --primary: #10b981;
+            --primary-dark: #059669;
+            --secondary: #3b82f6;
+            --accent: #f59e0b;
+            --background: #0f172a;
+            --surface: #1e293b;
+            --surface-hover: #334155;
+            --text: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border: #334155;
+            --gradient-main: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+            --shadow-lg: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
+            --shadow-glow: 0 0 20px rgba(16, 185, 129, 0.3);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,328 +37,314 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
             line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 20px 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
         }
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 100px 0;
+            padding: 180px 0 100px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1000px;
+            height: 1000px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            z-index: -1;
+            pointer-events: none;
         }
 
         .hero h1 {
-            font-size: 3.5em;
-            margin-bottom: 20px;
-            font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            font-size: 4rem;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
         }
 
-        .hero .tagline {
-            font-size: 1.5em;
-            margin-bottom: 40px;
-            opacity: 0.95;
+        .hero h1 span {
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .app-icon {
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 30px;
-            background: white;
-            border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 80px;
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 40px;
         }
 
         .cta-button {
             display: inline-block;
-            background: white;
-            color: #667eea;
-            padding: 15px 40px;
-            border-radius: 30px;
-            text-decoration: none;
+            background: var(--gradient-main);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 50px;
             font-weight: 600;
-            font-size: 1.2em;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transition: transform 0.3s, box-shadow 0.3s;
+            font-size: 1.1rem;
+            box-shadow: var(--shadow-glow);
+            transition: all 0.3s ease;
         }
 
         .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.5);
         }
 
-        /* Features Section */
+        /* Features Grid */
         .features {
-            background: white;
-            padding: 80px 0;
+            padding: 100px 0;
         }
 
         .section-title {
             text-align: center;
-            font-size: 2.5em;
+            font-size: 2.5rem;
             margin-bottom: 60px;
-            color: #667eea;
         }
 
-        .feature-grid {
+        .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-bottom: 60px;
+            gap: 32px;
         }
 
         .feature-card {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            padding: 40px;
-            border-radius: 20px;
-            text-align: center;
-            transition: transform 0.3s;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 32px;
+            transition: all 0.3s ease;
         }
 
         .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            border-color: var(--primary);
+            transform: translateY(-5px);
         }
 
         .feature-icon {
-            font-size: 3em;
+            font-size: 2.5rem;
             margin-bottom: 20px;
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.1);
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            border-radius: 16px;
+            color: var(--primary);
         }
 
         .feature-card h3 {
-            font-size: 1.5em;
-            margin-bottom: 15px;
-            color: #667eea;
+            font-size: 1.5rem;
+            margin-bottom: 12px;
         }
 
         .feature-card p {
-            color: #555;
+            color: var(--text-secondary);
         }
 
-        /* Description Section */
-        .description {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            padding: 80px 0;
+        /* Screenshots Section */
+        .screenshots {
+            padding: 100px 0;
+            background: rgba(30, 41, 59, 0.5);
         }
 
-        .description-content {
-            max-width: 800px;
-            margin: 0 auto;
-            font-size: 1.2em;
-            line-height: 1.8;
-        }
-
-        .description h2 {
-            font-size: 2.5em;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .description ul {
-            list-style: none;
-            margin: 30px 0;
-        }
-
-        .description li {
-            padding: 15px 0;
-            padding-left: 40px;
-            position: relative;
-        }
-
-        .description li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-            font-size: 1.5em;
-        }
-
-        /* What's New Section */
-        .whats-new {
-            background: white;
-            padding: 80px 0;
-        }
-
-        .whats-new-content {
-            max-width: 800px;
-            margin: 0 auto;
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .whats-new h2 {
-            color: #d35400;
-            margin-bottom: 20px;
-        }
-
-        .whats-new ul {
-            list-style: none;
-        }
-
-        .whats-new li {
-            padding: 10px 0;
-            padding-left: 30px;
-            position: relative;
-            color: #555;
-        }
-
-        .whats-new li:before {
-            content: "🎉";
-            position: absolute;
-            left: 0;
-        }
-
-        /* Keywords Section */
-        .keywords {
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-            padding: 60px 0;
-            text-align: center;
-        }
-
-        .keyword-tags {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .keyword-tag {
-            background: white;
-            color: #667eea;
-            padding: 10px 25px;
-            border-radius: 25px;
-            font-weight: 600;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
-
-        /* Support Section */
-        .support {
-            background: white;
-            padding: 80px 0;
-        }
-
-        .support-grid {
+        .screenshot-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 40px;
             margin-top: 40px;
         }
 
-        .support-card {
-            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        .screenshot-placeholder {
+            aspect-ratio: 9/19.5;
+            background: var(--surface);
+            border: 2px dashed var(--border);
+            border-radius: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            padding: 20px;
         }
 
-        .support-card h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 1.5em;
-        }
-
-        .support-card p {
-            color: #555;
-            margin-bottom: 10px;
+        .screenshot-placeholder:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(16, 185, 129, 0.05);
         }
 
         /* Footer */
-        .footer {
-            background: #2c3e50;
-            color: white;
-            padding: 40px 0;
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 60px 0;
             text-align: center;
+            color: var(--text-secondary);
         }
 
-        .footer p {
-            margin: 10px 0;
-            opacity: 0.8;
+        footer a {
+            color: var(--text);
+            margin: 0 12px;
         }
 
-        /* Responsive */
+        footer a:hover {
+            color: var(--primary);
+        }
+
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 2.5em;
+                font-size: 2.5rem;
             }
 
-            .hero .tagline {
-                font-size: 1.2em;
+            .nav-links {
+                display: none;
             }
 
-            .section-title {
-                font-size: 2em;
-            }
-
-            .feature-grid,
-            .support-grid {
-                grid-template-columns: 1fr;
+            .screenshot-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
 </head>
+
 <body>
-    <!-- Hero Section -->
+    <header>
+        <nav class="container">
+            <a href="index.html" class="logo">PackPlanner</a>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#screenshots">Screenshots</a>
+                <a href="mailto:lists@anands.net">Support</a>
+            </div>
+            <a href="https://apps.apple.com/us/app/pack-planner/id1534201357" class="cta-button"
+                style="padding: 10px 24px; font-size: 0.9rem;">Download</a>
+        </nav>
+    </header>
+
     <section class="hero">
         <div class="container">
-            <div class="app-icon">🎒</div>
-            <h1>PackPlanner</h1>
-            <p class="tagline">The Ultimate Hiking Gear Organizer</p>
-            <p style="font-size: 1.2em; margin-bottom: 30px;">Plan smarter. Pack lighter. Hike happier.</p>
-            <a href="https://apps.apple.com/us/app/pack-planner/id1534201357" class="cta-button">Download on the App Store</a>
+            <h1>Plan Smarter. <br><span>Pack Lighter. Hike Happier.</span></h1>
+            <p>The ultimate hiking gear organizer. Optimize your gear, reduce pack weight, and perfect your loadout for
+                every adventure.</p>
+            <a href="https://apps.apple.com/us/app/pack-planner/id1534201357" class="cta-button">
+                <i class="fab fa-apple"></i> Download on App Store
+            </a>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features">
+    <section id="features" class="features">
         <div class="container">
             <h2 class="section-title">Why Hikers Love PackPlanner</h2>
-            <div class="feature-grid">
+            <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">⚖️</div>
+                    <div class="feature-icon"><i class="fas fa-balance-scale"></i></div>
                     <h3>Smart Weight Tracking</h3>
-                    <p>Track base weight, worn weight, and consumables separately. See exactly where every ounce goes.</p>
+                    <p>Track base weight, worn weight, and consumables separately. See exactly where every ounce goes.
+                    </p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">📋</div>
+                    <div class="feature-icon"><i class="fas fa-list-alt"></i></div>
                     <h3>Gear Library</h3>
-                    <p>Build your complete gear inventory with weights, categories, and descriptions. Never forget an item again.</p>
+                    <p>Build your complete gear inventory with weights, categories, and descriptions. Never forget an
+                        item again.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🏔️</div>
+                    <div class="feature-icon"><i class="fas fa-map-signs"></i></div>
                     <h3>Trip Planning</h3>
-                    <p>Create custom gear lists for each hike. Plan everything from day hikes to multi-week expeditions.</p>
+                    <p>Create custom gear lists for each hike. Plan everything from day hikes to multi-week expeditions.
+                    </p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🔄</div>
+                    <div class="feature-icon"><i class="fas fa-ruler-combined"></i></div>
                     <h3>Imperial & Metric</h3>
-                    <p>Seamlessly switch between pounds/ounces and kilograms/grams. Perfect for international adventures.</p>
+                    <p>Seamlessly switch between pounds/ounces and kilograms/grams. Perfect for international
+                        adventures.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">📊</div>
+                    <div class="feature-icon"><i class="fas fa-chart-pie"></i></div>
                     <h3>Weight Distribution</h3>
                     <p>Visualize your pack's weight breakdown. Optimize for comfort and efficiency.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">☁️</div>
+                    <div class="feature-icon"><i class="fas fa-cloud-upload-alt"></i></div>
                     <h3>iCloud Sync</h3>
                     <p>Access your gear lists across all your Apple devices. Your data stays in sync automatically.</p>
                 </div>
@@ -341,109 +352,40 @@
         </div>
     </section>
 
-    <!-- Description Section -->
-    <section class="description">
+    <section id="screenshots" class="screenshots">
         <div class="container">
-            <div class="description-content">
-                <h2>Pack Like a Pro</h2>
-                <p>
-                    PackPlanner is the essential companion for hikers, backpackers, and outdoor enthusiasts who want to optimize their gear and reduce pack weight. Whether you're planning a weekend camping trip or a thru-hike, PackPlanner helps you organize, weigh, and perfect your loadout.
-                </p>
-                <ul>
-                    <li><strong>Comprehensive Gear Management</strong> - Create a detailed inventory of all your hiking gear with weights, categories, and custom notes</li>
-                    <li><strong>Trip-Specific Packing Lists</strong> - Build custom gear lists for each adventure and track what's verified and packed</li>
-                    <li><strong>Advanced Weight Calculations</strong> - Automatically calculate base weight, total pack weight, worn weight, and consumables</li>
-                    <li><strong>Category Organization</strong> - Organize gear by categories like Shelter, Sleep System, Cooking, Clothing, and more</li>
-                    <li><strong>Search & Filter</strong> - Quickly find gear items or filter by pending/verified status</li>
-                    <li><strong>Export Functionality</strong> - Export your gear lists to CSV for sharing or backup</li>
-                    <li><strong>Modern Interface</strong> - Beautiful, intuitive SwiftUI design optimized for iOS</li>
-                    <li><strong>Offline-First</strong> - All your data is stored locally with optional iCloud sync</li>
-                </ul>
-                <p>
-                    Join thousands of hikers who have discovered the joy of organized, lightweight packing. Download PackPlanner today and transform the way you prepare for outdoor adventures!
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- What's New Section -->
-    <section class="whats-new">
-        <div class="container">
-            <h2 class="section-title">What's New in This Version</h2>
-            <div class="whats-new-content">
-                <h3>Version 2.0 - Major Update!</h3>
-                <ul>
-                    <li><strong>Complete SwiftUI Redesign</strong> - Modernized interface with smooth animations and improved usability</li>
-                    <li><strong>Real-Time Weight Updates</strong> - See weight calculations update instantly as you toggle gear properties</li>
-                    <li><strong>Enhanced Unit Support</strong> - Seamless switching between imperial and metric units throughout the app</li>
-                    <li><strong>Improved Performance</strong> - Faster load times and smoother scrolling with optimized weight caching</li>
-                    <li><strong>Better Organization</strong> - Enhanced category-based sorting and gear grouping</li>
-                    <li><strong>Bug Fixes</strong> - Resolved weight display issues and improved data synchronization</li>
-                    <li><strong>App Store Ready</strong> - Added required app icon and optimized for submission</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- Keywords Section -->
-    <section class="keywords">
-        <div class="container">
-            <h2 class="section-title">Search Keywords</h2>
-            <div class="keyword-tags">
-                <span class="keyword-tag">hiking</span>
-                <span class="keyword-tag">backpacking</span>
-                <span class="keyword-tag">camping</span>
-                <span class="keyword-tag">gear list</span>
-                <span class="keyword-tag">pack weight</span>
-                <span class="keyword-tag">ultralight</span>
-                <span class="keyword-tag">trail planning</span>
-                <span class="keyword-tag">outdoor</span>
-                <span class="keyword-tag">trekking</span>
-                <span class="keyword-tag">thru-hike</span>
-                <span class="keyword-tag">gear organizer</span>
-                <span class="keyword-tag">base weight</span>
-                <span class="keyword-tag">packing list</span>
-                <span class="keyword-tag">weight tracker</span>
-                <span class="keyword-tag">adventure</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Support Section -->
-    <section class="support">
-        <div class="container">
-            <h2 class="section-title">Support & Contact</h2>
-            <div class="support-grid">
-                <div class="support-card">
-                    <h3>Getting Started</h3>
-                    <p><strong>Add Your First Gear:</strong> Tap the + button in the Gear tab to create your first item.</p>
-                    <p><strong>Create a Hike:</strong> Switch to the Hikes tab and tap Add to plan your first adventure.</p>
-                    <p><strong>Add Gear to Hike:</strong> Open a hike and tap "Add Gear" to select items from your inventory.</p>
+            <h2 class="section-title">App Screenshots</h2>
+            <div class="screenshot-grid">
+                <div class="screenshot-placeholder">
+                    <i class="fas fa-suitcase fa-2x" style="margin-bottom: 10px;"></i><br>
+                    Gear Inventory
                 </div>
-                <div class="support-card">
-                    <h3>Tips & Tricks</h3>
-                    <p><strong>Toggle Properties:</strong> In hike details, tap the icons to mark gear as worn, consumable, or verified.</p>
-                    <p><strong>Weight Units:</strong> Change between imperial and metric in the Settings (gear icon).</p>
-                    <p><strong>Search:</strong> Use the search bar to quickly find specific gear items.</p>
+                <div class="screenshot-placeholder">
+                    <i class="fas fa-clipboard-list fa-2x" style="margin-bottom: 10px;"></i><br>
+                    Trip Packing List
                 </div>
-                <div class="support-card">
-                    <h3>Contact Support</h3>
-                    <p><strong>Email:</strong> <a href="mailto:lists@anands.net" style="color: #667eea; text-decoration: none; font-weight: 600;">lists@anands.net</a></p>
-                    <p><strong>Website:</strong> www.packplanner.app</p>
-                    <p>We typically respond within 24 hours. Your feedback helps us improve!</p>
+                <div class="screenshot-placeholder">
+                    <i class="fas fa-chart-pie fa-2x" style="margin-bottom: 10px;"></i><br>
+                    Weight Analysis
+                </div>
+                <div class="screenshot-placeholder">
+                    <i class="fas fa-sliders-h fa-2x" style="margin-bottom: 10px;"></i><br>
+                    Category Management
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
+    <footer>
         <div class="container">
-            <p><strong>PackPlanner</strong></p>
-            <p>Made with ❤️ for hikers everywhere</p>
-            <p>&copy; 2024 PackPlanner. All rights reserved.</p>
-            <p style="margin-top: 20px;">iOS 13.0 or later required</p>
+            <p>&copy; 2025 PackPlanner. All rights reserved.</p>
+            <div style="margin-top: 20px;">
+                <a href="index.html">Home</a>
+                <a href="mailto:lists@anands.net">Support</a>
+                <a href="#">Privacy Policy</a>
+            </div>
         </div>
     </footer>
 </body>
+
 </html>

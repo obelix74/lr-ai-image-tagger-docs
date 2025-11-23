@@ -1,908 +1,530 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Image Tagger - Adobe Lightroom Classic Plugin</title>
-    <meta name="description" content="Automatically tag your photos with AI-powered captions, descriptions, and keywords using Google Gemini AI or local Ollama models in Adobe Lightroom Classic.">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <meta name="description"
+        content="Automatically tag your photos with AI-powered captions, descriptions, and keywords using Google Gemini AI, OpenAI GPT-4V, or local Ollama models.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --primary: #f43f5e;
+            --primary-dark: #e11d48;
+            --secondary: #8b5cf6;
+            --accent: #06b6d4;
+            --background: #0f172a;
+            --surface: #1e293b;
+            --surface-hover: #334155;
+            --text: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border: #334155;
+            --gradient-main: linear-gradient(135deg, #f43f5e 0%, #8b5cf6 100%);
+            --shadow-lg: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
+            --shadow-glow: 0 0 20px rgba(244, 63, 94, 0.3);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
             line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow-x: hidden;
         }
-        
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
         }
-        
+
+        /* Header */
         header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 0;
             position: fixed;
-            width: 100%;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 20px 0;
         }
-        
+
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .logo {
             font-size: 1.5rem;
-            font-weight: bold;
-            color: #667eea;
+            font-weight: 800;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
         }
-        
+
         .nav-links {
             display: flex;
-            list-style: none;
-            gap: 2rem;
+            gap: 32px;
         }
-        
+
         .nav-links a {
-            text-decoration: none;
-            color: #333;
             font-weight: 500;
-            transition: color 0.3s;
+            color: var(--text-secondary);
         }
-        
+
         .nav-links a:hover {
-            color: #667eea;
+            color: var(--text);
         }
-        
+
+        /* Hero Section */
         .hero {
-            padding: 120px 0 80px;
+            padding: 180px 0 100px;
             text-align: center;
-            color: white;
+            position: relative;
+            overflow: hidden;
         }
-        
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1000px;
+            height: 1000px;
+            background: radial-gradient(circle, rgba(244, 63, 94, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
         .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-size: 4rem;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
         }
-        
+
+        .hero h1 span {
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
         .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 40px;
         }
-        
+
         .cta-button {
             display: inline-block;
-            background: #ff6b6b;
+            background: var(--gradient-main);
             color: white;
-            padding: 15px 30px;
-            text-decoration: none;
+            padding: 16px 40px;
             border-radius: 50px;
-            font-weight: bold;
+            font-weight: 600;
             font-size: 1.1rem;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            box-shadow: var(--shadow-glow);
+            transition: all 0.3s ease;
         }
-        
+
         .cta-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+            box-shadow: 0 0 30px rgba(244, 63, 94, 0.5);
         }
-        
+
+        /* Features Grid */
         .features {
-            background: white;
-            padding: 80px 0;
+            padding: 100px 0;
         }
-        
-        .features h2 {
+
+        .section-title {
             text-align: center;
             font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #333;
+            margin-bottom: 60px;
         }
-        
+
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            gap: 32px;
         }
-        
+
         .feature-card {
-            background: #f8f9fa;
-            padding: 2rem;
-            border-radius: 15px;
-            text-align: center;
-            transition: transform 0.3s;
-            border: 1px solid #e9ecef;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 32px;
+            transition: all 0.3s ease;
         }
-        
+
         .feature-card:hover {
+            border-color: var(--primary);
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
-        
+
         .feature-icon {
-            font-size: 3rem;
-            color: #667eea;
-            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: inline-block;
+            background: rgba(244, 63, 94, 0.1);
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            border-radius: 16px;
+            color: var(--primary);
         }
-        
-        .installation {
-            background: #f8f9fa;
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+        }
+
+        /* Screenshots Section */
+        .screenshots {
+            padding: 100px 0;
+            background: rgba(30, 41, 59, 0.5);
+        }
+
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .screenshot-placeholder {
+            aspect-ratio: 16/10;
+            background: var(--surface);
+            border: 2px dashed var(--border);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .screenshot-placeholder:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(244, 63, 94, 0.05);
+        }
+
+        /* Installation & Release Notes (Specific to this app) */
+        .content-section {
             padding: 80px 0;
         }
-        
-        .installation h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #333;
+
+        .step-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
         }
-        
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-        
-        .step {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            text-align: center;
-            position: relative;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
+
         .step-number {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #667eea;
+            background: var(--primary);
             color: white;
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
+            flex-shrink: 0;
         }
-        
-        .api-key-section {
-            background: white;
-            padding: 80px 0;
+
+        .release-note {
+            background: var(--surface);
+            border-left: 4px solid var(--primary);
+            padding: 24px;
+            border-radius: 0 16px 16px 0;
+            margin-bottom: 32px;
         }
-        
-        .api-key-content {
-            background: #f8f9fa;
-            padding: 3rem;
-            border-radius: 15px;
-            border-left: 5px solid #667eea;
+
+        .release-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
         }
-        
-        .code-block {
-            background: #2d3748;
-            color: #e2e8f0;
-            padding: 1rem;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            margin: 1rem 0;
-            overflow-x: auto;
-        }
-        
-        footer {
-            background: #2d3748;
+
+        .version-tag {
+            background: var(--primary);
             color: white;
-            text-align: center;
-            padding: 2rem 0;
-        }
-        
-        .download-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 80px 0;
-            text-align: center;
-            color: white;
-        }
-        
-        .download-button {
-            display: inline-block;
-            background: white;
-            color: #667eea;
-            padding: 20px 40px;
-            text-decoration: none;
-            border-radius: 50px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
             font-weight: bold;
-            font-size: 1.2rem;
-            margin: 1rem;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .download-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
 
-        .video-demo {
-            background: #f8fafc;
-            padding: 80px 0;
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 60px 0;
             text-align: center;
+            color: var(--text-secondary);
         }
 
-        .video-demo h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: #2d3748;
+        footer a {
+            color: var(--text);
+            margin: 0 12px;
         }
 
-        .video-demo p {
-            font-size: 1.2rem;
-            color: #4a5568;
-            margin-bottom: 3rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+        footer a:hover {
+            color: var(--primary);
         }
 
-        .video-container {
-            position: relative;
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            padding-bottom: 45%; /* 16:9 aspect ratio */
-            height: 0;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2.5rem;
             }
-            
+
             .nav-links {
                 display: none;
             }
-            
-            .features-grid,
-            .steps {
+
+            .screenshot-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .video-demo {
-                padding: 60px 0;
-            }
-
-            .video-demo h2 {
-                font-size: 2rem;
-            }
-
-            .video-container {
-                margin: 0 1rem;
-                max-width: calc(100% - 2rem);
             }
         }
     </style>
 </head>
+
 <body>
     <header>
         <nav class="container">
-            <div class="logo">
-                <i class="fas fa-robot"></i> AI Image Tagger for Lightroom
+            <a href="index.html" class="logo">AI Image Tagger</a>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#installation">Installation</a>
+                <a href="#release-notes">Release Notes</a>
+                <a href="https://github.com/obelix74/lr-ai-image-tagger-docs" target="_blank">GitHub</a>
             </div>
-            <ul class="nav-links">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#demo">Demo</a></li>
-                <li><a href="#installation">Installation</a></li>
-                <li><a href="#download">Download</a></li>
-                <li><a href="#release-notes">Release Notes</a></li>
-                <li><a href="#troubleshooting">Support</a></li>
-                <li><a href="#contribute">GitHub</a></li>
-            </ul>
+            <a href="#download" class="cta-button" style="padding: 10px 24px; font-size: 0.9rem;">Download</a>
         </nav>
     </header>
 
     <section class="hero">
         <div class="container">
-            <h1><i class="fas fa-magic"></i> AI Image Tagger for Adobe Lightroom Classic</h1>
-            <p>Automatically tag your photos with AI-powered captions, descriptions, and keywords using Google Gemini AI, OpenAI GPT-4V, or local Ollama models in Adobe Lightroom Classic.</p>
-            <a href="#download" class="cta-button">
-                <i class="fas fa-download"></i> Download Now - Free
+            <h1>Supercharge Lightroom <br><span>with AI Tagging</span></h1>
+            <p>Automatically tag your photos with AI-powered captions, descriptions, and keywords using Google Gemini
+                AI, OpenAI GPT-4V, or local Ollama models directly in Adobe Lightroom Classic.</p>
+            <a href="https://github.com/obelix74/lr-ai-image-tagger-docs/raw/refs/heads/main/dist/ai-lr-tagimg-v6.4.0.zip"
+                class="cta-button">
+                <i class="fas fa-download"></i> Download Plugin v6.4.0
             </a>
         </div>
     </section>
 
     <section id="features" class="features">
         <div class="container">
-            <h2>Powerful AI Features</h2>
+            <h2 class="section-title">Powerful AI Features</h2>
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-brain"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-brain"></i></div>
                     <h3>Smart AI Analysis</h3>
-                    <p>Generate intelligent captions, detailed descriptions, and relevant keywords using Google Gemini AI, OpenAI GPT-4V, or local Ollama models.</p>
+                    <p>Generate intelligent captions, detailed descriptions, and relevant keywords using Google Gemini
+                        AI, OpenAI GPT-4V, or local Ollama models.</p>
                 </div>
-                
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-tags"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-tags"></i></div>
                     <h3>Complete IPTC Support</h3>
-                    <p>Save all metadata to industry-standard IPTC fields including captions, descriptions, keywords, copyright, and location data.</p>
+                    <p>Save all metadata to industry-standard IPTC fields including captions, descriptions, keywords,
+                        copyright, and location data.</p>
                 </div>
-                
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-layer-group"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-layer-group"></i></div>
                     <h3>Batch Processing</h3>
-                    <p>Efficiently analyze multiple photos with configurable batch sizes and intelligent rate limiting to optimize performance.</p>
+                    <p>Efficiently analyze multiple photos with configurable batch sizes and intelligent rate limiting
+                        to optimize performance.</p>
                 </div>
-                
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-cog"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-cog"></i></div>
                     <h3>Custom Prompts</h3>
-                    <p>Create your own AI analysis prompts to tailor the output to your specific photography style and requirements.</p>
+                    <p>Create your own AI analysis prompts to tailor the output to your specific photography style and
+                        requirements.</p>
                 </div>
-                
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-file-export"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-file-export"></i></div>
                     <h3>Export Results</h3>
-                    <p>Export analysis results to CSV format for external processing, workflow documentation, and further analysis.</p>
+                    <p>Export analysis results to CSV format for external processing, workflow documentation, and
+                        further analysis.</p>
                 </div>
-                
                 <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
                     <h3>Secure & Private</h3>
-                    <p>Your API keys are stored securely, and your images are processed safely without being stored by the AI service.</p>
+                    <p>Your API keys are stored securely, and your images are processed safely. Use Ollama for 100%
+                        local, offline processing.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="demo" class="video-demo">
+    <section id="screenshots" class="screenshots">
         <div class="container">
-            <h2>See It In Action</h2>
-            <p>Watch how AI Image Tagger transforms your photo workflow with intelligent metadata generation</p>
-            <div class="video-container">
-                <iframe
-                    src="https://www.youtube.com/embed/km1yoIfScgs"
-                    title="AI Image Tagger Demo"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen>
-                </iframe>
+            <h2 class="section-title">Plugin Interface</h2>
+            <div class="screenshot-grid">
+                <div class="screenshot-placeholder">
+                    <i class="fas fa-sliders-h fa-2x" style="margin-right: 10px;"></i>
+                    Plugin Settings Screenshot
+                </div>
+                <div class="screenshot-placeholder">
+                    <i class="fas fa-images fa-2x" style="margin-right: 10px;"></i>
+                    Batch Processing Screenshot
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="installation" class="installation">
+    <section id="installation" class="content-section">
         <div class="container">
-            <h2>Easy Installation</h2>
-            <div class="steps">
-                <div class="step">
+            <h2 class="section-title">Installation Guide</h2>
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div class="step-card">
                     <div class="step-number">1</div>
-                    <h3><i class="fas fa-download"></i> Download Plugin</h3>
-                    <p>Download the latest version of AI Image Tagger from our secure download link below.</p>
+                    <div>
+                        <h3>Download Plugin</h3>
+                        <p>Download the latest version of the AI Image Tagger plugin zip file.</p>
+                    </div>
                 </div>
-
-                <div class="step">
+                <div class="step-card">
                     <div class="step-number">2</div>
-                    <h3><i class="fas fa-key"></i> Get API Key</h3>
-                    <p>Get API keys for your preferred AI provider: Google AI Studio (Gemini), OpenAI Platform (GPT-4V), or install Ollama locally.</p>
+                    <div>
+                        <h3>Get API Key</h3>
+                        <p>Get API keys for your preferred AI provider: Google AI Studio (Gemini), OpenAI Platform
+                            (GPT-4V), or install Ollama locally.</p>
+                    </div>
                 </div>
-
-                <div class="step">
+                <div class="step-card">
                     <div class="step-number">3</div>
-                    <h3><i class="fas fa-plug"></i> Install in Lightroom</h3>
-                    <p>Add the plugin to Lightroom Classic through File > Plug-in Manager and configure your API key.</p>
+                    <div>
+                        <h3>Install in Lightroom</h3>
+                        <p>Add the plugin to Lightroom Classic through File > Plug-in Manager and configure your API
+                            key.</p>
+                    </div>
                 </div>
-
-                <div class="step">
+                <div class="step-card">
                     <div class="step-number">4</div>
-                    <h3><i class="fas fa-magic"></i> Start Tagging</h3>
-                    <p>Select photos and use Library > Plug-in Extras > Tag Photos with AI to begin automatic tagging.</p>
+                    <div>
+                        <h3>Start Tagging</h3>
+                        <p>Select photos and use Library > Plug-in Extras > Tag Photos with AI to begin automatic
+                            tagging.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="api-key-section">
+    <section id="release-notes" class="content-section" style="background: var(--surface);">
         <div class="container">
-            <div class="api-key-content">
-                <h2><i class="fas fa-key"></i> Getting Your API Key</h2>
-                <p>Choose your preferred AI provider and follow the setup instructions:</p>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin: 2rem 0;">
-                    <!-- Gemini -->
-                    <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid #4285f4;">
-                        <h3 style="color: #4285f4; margin-bottom: 1rem;"><i class="fab fa-google"></i> Google Gemini</h3>
-                        <ol style="font-size: 0.9rem; padding-left: 1.5rem;">
-                            <li>Visit <a href="https://ai.google.dev/gemini-api/docs/api-key" target="_blank" style="color: #4285f4;">Google AI Studio</a></li>
-                            <li>Sign in with Google account</li>
-                            <li>Create new API key</li>
-                            <li>Copy and save securely</li>
-                        </ol>
-                        <div style="background: #e8f4fd; padding: 0.8rem; border-radius: 6px; margin-top: 1rem; font-size: 0.8rem;">
-                            <strong>Free Tier:</strong> 15/min, 1,500/day
-                        </div>
-                    </div>
-
-                    <!-- OpenAI -->
-                    <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid #00a67e;">
-                        <h3 style="color: #00a67e; margin-bottom: 1rem;"><i class="fas fa-brain"></i> OpenAI GPT-4V</h3>
-                        <ol style="font-size: 0.9rem; padding-left: 1.5rem;">
-                            <li>Visit <a href="https://platform.openai.com/api-keys" target="_blank" style="color: #00a67e;">OpenAI Platform</a></li>
-                            <li>Sign up or log in</li>
-                            <li>Generate new API key</li>
-                            <li>Add billing method</li>
-                        </ol>
-                        <div style="background: #e8f5e8; padding: 0.8rem; border-radius: 6px; margin-top: 1rem; font-size: 0.8rem;">
-                            <strong>Cost:</strong> ~$0.01-0.03 per image
-                        </div>
-                    </div>
-
-                    <!-- Ollama -->
-                    <div style="background: white; padding: 1.5rem; border-radius: 12px; border: 2px solid #ff6b6b;">
-                        <h3 style="color: #ff6b6b; margin-bottom: 1rem;"><i class="fas fa-home"></i> Local Ollama</h3>
-                        <ol style="font-size: 0.9rem; padding-left: 1.5rem;">
-                            <li>Download <a href="https://ollama.ai" target="_blank" style="color: #ff6b6b;">Ollama</a></li>
-                            <li>Install locally</li>
-                            <li>Download vision model</li>
-                            <li>No API key needed</li>
-                        </ol>
-                        <div style="background: #ffe8e8; padding: 0.8rem; border-radius: 6px; margin-top: 1rem; font-size: 0.8rem;">
-                            <strong>Privacy:</strong> 100% local processing
-                        </div>
-                    </div>
-                </div>
-
-                <div style="background: #e3f2fd; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
-                    <strong><i class="fas fa-info-circle"></i> Provider Comparison:</strong>
-                    <ul style="margin-top: 0.5rem; padding-left: 1.5rem; font-size: 0.9rem;">
-                        <li><strong>Gemini:</strong> Free tier available, excellent quality, Google's latest AI</li>
-                        <li><strong>OpenAI:</strong> Industry-leading GPT-4V model, pay-per-use, premium quality</li>
-                        <li><strong>Ollama:</strong> Complete privacy, no internet required, free after download</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="download" class="download-section">
-        <div class="container">
-            <h2><i class="fas fa-download"></i> Download Lightroom Plugin</h2>
-            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Get the latest version of the AI Image Tagger plugin for Adobe Lightroom Classic</p>
-
-            <a href="https://github.com/obelix74/lr-ai-image-tagger-docs/raw/refs/heads/main/dist/ai-lr-tagimg-v6.4.0.zip" class="download-button">
-                <i class="fas fa-download"></i> Download v6.4.0 (Latest)
-            </a>
-
-            <a href="https://exchange.adobe.com/apps/cc/204294" class="download-button">
-                <i class="fas fa-download"></i> Download from Adobe Exchange
-            </a>
-
-            <div style="margin-top: 2rem; opacity: 0.9;">
-                <p><strong>System Requirements:</strong></p>
-                <p>Adobe Lightroom Classic 2024 or newer • Internet connection for Gemini AI/OpenAI • Local Ollama installation (optional)</p>
-            </div>
-
-
-        </div>
-    </section>
-
-    <section id="release-notes" style="background: white; padding: 80px 0;">
-        <div class="container">
-            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem; color: #333;">
-                <i class="fas fa-history"></i> Release Notes
-            </h2>
-            
+            <h2 class="section-title">Release Notes</h2>
             <div style="max-width: 900px; margin: 0 auto;">
-                <!-- Version 6.4.0 -->
-                <div style="background: #f8f9fa; padding: 2rem; border-radius: 15px; margin-bottom: 2rem; border-left: 5px solid #28a745;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                        <h3 style="color: #28a745; margin: 0; font-size: 1.5rem;">
-                            <i class="fas fa-sync-alt"></i> Version 6.4.0 - Retry Logic & Error Recovery
-                        </h3>
-                        <span style="background: #28a745; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;">LATEST</span>
-                    </div>
-                    <p style="color: #666; margin-bottom: 1rem; font-style: italic;">Released November 10, 2025 - Fixed critical "exits too quickly" issue with proper retry logic and exponential backoff</p>
 
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-                        <div>
-                            <h4 style="color: #dc3545; margin-bottom: 0.5rem;"><i class="fas fa-bug"></i> Critical Bug Fixes</h4>
-                            <ul style="color: #555; padding-left: 1.5rem; margin: 0; font-size: 0.9rem;">
-                                <li><strong>Automatic Retry Logic:</strong> Fixed issue where quota/rate limit errors caused immediate failures</li>
-                                <li><strong>Exponential Backoff:</strong> Proper retry mechanism with 2s, 4s, 8s delays for temporary issues</li>
-                                <li><strong>Network Resilience:</strong> Network errors now properly retry instead of failing immediately</li>
-                                <li><strong>Processing Reliability:</strong> Plugin waits and retries when hitting API limits</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 style="color: #17a2b8; margin-bottom: 0.5rem;"><i class="fas fa-check-circle"></i> Enhancements</h4>
-                            <ul style="color: #555; padding-left: 1.5rem; margin: 0; font-size: 0.9rem;">
-                                <li><strong>Gemini API:</strong> Up to 3 retry attempts for quota/rate limit errors</li>
-                                <li><strong>OpenAI API:</strong> Enhanced error recovery with proper retry handling</li>
-                                <li><strong>Better Logging:</strong> Clear distinction between retriable warnings and permanent errors</li>
-                                <li><strong>Success Rate:</strong> Significantly improved reliability during rate limiting</li>
-                            </ul>
-                        </div>
+                <!-- v6.4.0 -->
+                <div class="release-note">
+                    <div class="release-header">
+                        <h3>Version 6.4.0 - Retry Logic & Error Recovery</h3>
+                        <span class="version-tag">LATEST</span>
                     </div>
-
-                    <div style="background: #d4edda; padding: 1rem; border-radius: 8px; margin-top: 1rem; border-left: 3px solid #28a745;">
-                        <strong><i class="fas fa-check-circle"></i> User Impact:</strong>
-                        <span style="color: #666; margin-left: 0.5rem;"><strong>Before:</strong> Images would fail instantly when quota exceeded, appearing to "exit too quickly". <strong>After:</strong> Plugin waits and retries automatically, successfully processing images after API quota resets. Expect longer processing times during retries (up to ~14s of backoff delays) but much higher success rates.</span>
-                    </div>
-                </div>
-
-                <!-- Version 6.3.0 -->
-                <div style="background: #f8f9fa; padding: 2rem; border-radius: 15px; margin-bottom: 2rem; border-left: 5px solid #6c757d;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                        <h3 style="color: #6c757d; margin: 0; font-size: 1.3rem;">
-                            <i class="fas fa-tags"></i> Version 6.3.0 - Keyword Format Improvements
-                        </h3>
-                    </div>
-                    <p style="color: #666; margin-bottom: 1rem; font-style: italic;">Released November 10, 2025 - Enhanced keyword format validation and hierarchical keyword improvements</p>
-
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-                        <div>
-                            <h4 style="color: #17a2b8; margin-bottom: 0.5rem;"><i class="fas fa-plus-circle"></i> Enhancements</h4>
-                            <ul style="color: #555; padding-left: 1.5rem; margin: 0; font-size: 0.9rem;">
-                                <li><strong>Keyword Format Validation:</strong> Explicit instructions ensure keywords are comma-separated strings</li>
-                                <li><strong>Hierarchical Keywords:</strong> Better prompt engineering for hierarchical keyword generation</li>
-                                <li><strong>Custom Prompt Support:</strong> Hierarchical instructions automatically appended when enabled</li>
-                                <li><strong>Robust Parsing:</strong> Improved comma-separated keyword string processing</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 style="color: #28a745; margin-bottom: 0.5rem;"><i class="fas fa-wrench"></i> Technical</h4>
-                            <ul style="color: #555; padding-left: 1.5rem; margin: 0; font-size: 0.9rem;">
-                                <li><strong>Gemini & OpenAI:</strong> Enhanced prompts with format validation notes</li>
-                                <li><strong>Format Enforcement:</strong> "IMPORTANT" directive preventing array responses</li>
-                                <li><strong>Fixed Issues:</strong> Resolved cases where AI returned arrays instead of strings</li>
-                                <li><strong>Hierarchical Separators:</strong> Consistent ' > ' separator application</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div style="background: #d1ecf1; padding: 1rem; border-radius: 8px; margin-top: 1rem; border-left: 3px solid #17a2b8;">
-                        <strong><i class="fas fa-info-circle"></i> What Changed:</strong>
-                        <span style="color: #666; margin-left: 0.5rem;">This release improves keyword format reliability by adding explicit validation instructions to AI prompts, ensuring keywords are returned as comma-separated strings rather than JSON arrays. Hierarchical keyword support is now more robust and consistent across all AI providers.</span>
-                    </div>
-                </div>
-
-                <!-- Version 6.2.0 -->
-                <div style="background: #f8f9fa; padding: 2rem; border-radius: 15px; margin-bottom: 2rem; border-left: 5px solid #6c757d;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                        <h3 style="color: #6c757d; margin: 0; font-size: 1.3rem;">
-                            <i class="fas fa-bug"></i> Version 6.2.0 - Stability & Bug Reporting
-                        </h3>
-                    </div>
-                    <p style="color: #666; margin-bottom: 1rem; font-style: italic;">Critical stability fixes for batch processing and new bug reporting feature</p>
-
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-                        <div>
-                            <h4 style="color: #dc3545; margin-bottom: 0.5rem;"><i class="fas fa-wrench"></i> Critical Bug Fixes</h4>
-                            <ul style="color: #555; padding-left: 1.5rem; margin: 0; font-size: 0.9rem;">
-                                <li><strong>Batch Processing Fixed:</strong> Resolved issue where first 2 photos would get stuck when processing 1000+ photos</li>
-                                <li><strong>Exponential Backoff:</strong> Added 2s → 4s → 8s retry delays to prevent API rate limits</li>
-                                <li><strong>Task Pacing:</strong> Added configurable delay between starting concurrent tasks (default 1s)</li>
-                                <li><strong>Cold Start Protection:</strong> Prevents overwhelming API with simultaneous requests at startup</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 style="color: #17a2b8; margin-bottom: 0.5rem;"><i class="fas fa-plus-circle"></i> New Features</h4>
-                            <ul style="color: #555; padding-left: 1.5rem; margin: 0; font-size: 0.9rem;">
-                                <li><strong>Bug Reporting:</strong> New "Bug Reporting" section in Plugin Manager</li>
-                                <li><strong>GitHub Integration:</strong> Direct link to report issues on GitHub</li>
-                                <li><strong>All Providers Fixed:</strong> Retry fixes applied to Gemini, OpenAI, and Ollama APIs</li>
-                                <li><strong>Better Logging:</strong> Enhanced logging for retry attempts and delays</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div style="background: #d4edda; padding: 1rem; border-radius: 8px; margin-top: 1rem; border-left: 3px solid #28a745;">
-                        <strong><i class="fas fa-check-circle"></i> Important Fix:</strong>
-                        <span style="color: #666; margin-left: 0.5rem;">Users processing large batches (1000+ photos) no longer need to run analysis 3 times. The plugin now handles cold connections, rate limits, and concurrent requests gracefully. This release significantly improves reliability for power users.</span>
-                    </div>
-                </div>
-
-                <!-- Version 6.1.0 -->
-                <div style="background: #f8f9fa; padding: 2rem; border-radius: 15px; margin-bottom: 2rem; border-left: 5px solid #6c757d;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                        <h3 style="color: #6c757d; margin: 0; font-size: 1.3rem;">
-                            <i class="fas fa-sync-alt"></i> Version 6.1.0 - Migration Update
-                        </h3>
-                    </div>
-                    <p style="color: #666; margin-bottom: 1rem; font-style: italic;">Automatic model migration and performance optimization - All users seamlessly upgraded to Gemini 2.5 Flash</p>
-
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-                        <div>
-                            <h4 style="color: #28a745; margin-bottom: 0.5rem;"><i class="fas fa-sync"></i> Automatic Migration</h4>
-                            <ul style="color: #555; padding-left: 1.5rem; margin: 0; font-size: 0.9rem;">
-                                <li><strong>Model Upgrade:</strong> Gemini 1.5 Flash users automatically migrated to 2.5 Flash</li>
-                                <li><strong>Zero Configuration:</strong> Migration happens transparently on plugin load</li>
-                                <li><strong>Version Tracking:</strong> Plugin now tracks version for future automated updates</li>
-                                <li><strong>Migration Logging:</strong> Clear logs for transparency and debugging</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 style="color: #17a2b8; margin-bottom: 0.5rem;"><i class="fas fa-rocket"></i> Performance Benefits</h4>
-                            <ul style="color: #555; padding-left: 1.5rem; margin: 0; font-size: 0.9rem;">
-                                <li><strong>Better Results:</strong> Gemini 2.5 Flash provides improved accuracy</li>
-                                <li><strong>Same Cost:</strong> No price increase, just better performance</li>
-                                <li><strong>Future-Proof:</strong> Foundation for seamless future migrations</li>
-                                <li><strong>Backward Compatible:</strong> All existing settings preserved</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div style="background: #d4edda; padding: 1rem; border-radius: 8px; margin-top: 1rem; border-left: 3px solid #28a745;">
-                        <strong><i class="fas fa-check-circle"></i> Migration Info:</strong>
-                        <span style="color: #666; margin-left: 0.5rem;">Users with Gemini 1.5 Flash are automatically upgraded to 2.5 Flash on next Lightroom restart. Other model configurations (2.0 Flash, 2.5 Pro, OpenAI, Ollama) remain unchanged. No manual action required.</span>
-                    </div>
-                </div>
-
-                <!-- Version 6.0.0 -->
-                <div style="background: #f8f9fa; padding: 2rem; border-radius: 15px; margin-bottom: 2rem; border-left: 5px solid #6c757d;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                        <h3 style="color: #6c757d; margin: 0; font-size: 1.3rem;">
-                            <i class="fas fa-star"></i> Version 6.0.0 - Major Release
-                        </h3>
-                    </div>
-                    <p style="color: #666; margin-bottom: 1rem; font-style: italic;">Critical Gemini API compatibility update - Fixes empty results with new Gemini 2.5 models</p>
-
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-                        <div>
-                            <h4 style="color: #dc3545; margin-bottom: 0.5rem;"><i class="fas fa-bug"></i> Critical Fixes</h4>
-                            <ul style="color: #555; padding-left: 1.5rem; margin: 0; font-size: 0.9rem;">
-                                <li><strong>Gemini API Update:</strong> Fixed compatibility with new Gemini 2.5 models</li>
-                                <li><strong>Empty Results Fixed:</strong> Resolved MAX_TOKENS response truncation issue</li>
-                                <li><strong>Response Parsing:</strong> Enhanced parsing for new API response format</li>
-                                <li><strong>JSON Handling:</strong> Improved truncated response recovery</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 style="color: #ffc107; margin-bottom: 0.5rem;"><i class="fas fa-wrench"></i> Technical Improvements</h4>
-                            <ul style="color: #555; padding-left: 1.5rem; margin: 0; font-size: 0.9rem;">
-                                <li><strong>Token Limit:</strong> Increased from 1024 to 4096 tokens</li>
-                                <li><strong>Error Handling:</strong> Better finish reason detection (MAX_TOKENS, SAFETY)</li>
-                                <li><strong>Multi-format Support:</strong> Handles old and new Gemini response formats</li>
-                                <li><strong>Robust Parsing:</strong> 5-method comprehensive text extraction</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div style="background: #fff3cd; padding: 1rem; border-radius: 8px; margin-top: 1rem; border-left: 3px solid #ffc107;">
-                        <strong><i class="fas fa-exclamation-triangle"></i> Important Update:</strong>
-                        <span style="color: #666; margin-left: 0.5rem;">This release fixes critical issues with Gemini 2.5 Flash/Pro models that were causing empty results. Users experiencing "empty results" should update immediately. All three AI providers (Gemini, OpenAI, Ollama) now work reliably.</span>
-                    </div>
-                </div>
-
-                <!-- Version 5.0.0 -->
-                <div style="background: #f8f9fa; padding: 2rem; border-radius: 15px; margin-bottom: 2rem; border-left: 5px solid #6c757d;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                        <h3 style="color: #6c757d; margin: 0; font-size: 1.3rem;">
-                            <i class="fas fa-tag"></i> Version 5.0.0 - Major Release
-                        </h3>
-                    </div>
-                    <p style="color: #666; margin-bottom: 1rem; font-style: italic;">Revolutionary update with OpenAI GPT-4V integration - Three AI providers in one plugin!</p>
-                    <ul style="color: #555; padding-left: 1.5rem; margin: 0; font-size: 0.9rem;">
-                        <li><strong>OpenAI GPT-4V Support:</strong> World-class image analysis with OpenAI's vision models</li>
-                        <li><strong>Three AI Providers:</strong> Choose between Gemini, OpenAI, or Ollama</li>
-                        <li><strong>GPT-4o Integration:</strong> Latest OpenAI model with enhanced vision capabilities</li>
-                        <li><strong>Unified Interface:</strong> Seamless switching between all providers</li>
+                    <p style="color: var(--text-secondary); margin-bottom: 16px;">Released November 10, 2025 - Fixed
+                        critical "exits too quickly" issue with proper retry logic and exponential backoff.</p>
+                    <ul style="padding-left: 20px; color: var(--text-secondary);">
+                        <li><strong>Automatic Retry Logic:</strong> Fixed issue where quota/rate limit errors caused
+                            immediate failures</li>
+                        <li><strong>Exponential Backoff:</strong> Proper retry mechanism with 2s, 4s, 8s delays for
+                            temporary issues</li>
+                        <li><strong>Network Resilience:</strong> Network errors now properly retry instead of failing
+                            immediately</li>
                     </ul>
                 </div>
 
-                <!-- Version 4.0.3 -->
-                <div style="background: #f8f9fa; padding: 2rem; border-radius: 15px; margin-bottom: 2rem; border-left: 5px solid #6c757d;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                        <h3 style="color: #6c757d; margin: 0; font-size: 1.3rem;">
-                            <i class="fas fa-tag"></i> Version 4.0.3
-                        </h3>
+                <!-- v6.3.0 -->
+                <div class="release-note" style="border-color: var(--secondary);">
+                    <div class="release-header">
+                        <h3>Version 6.3.0 - Keyword Format Improvements</h3>
                     </div>
-                    <p style="color: #666; margin-bottom: 1rem; font-style: italic;">Previous stable release with new prompts and hierarchical keywords</p>
-                    <ul style="color: #555; padding-left: 1.5rem; margin: 0; font-size: 0.9rem;">
-                        <li><strong>New Prompts:</strong> Enhanced AI analysis with improved prompt templates</li>
-                        <li><strong>Hierarchical Keywords:</strong> Better keyword organization and structure</li>
-                        <li><strong>TIFF Thumbnail Fix:</strong> Improved compatibility with TIFF image formats</li>
-                        <li><strong>Bug Fixes:</strong> Various stability improvements and fixes</li>
+                    <p style="color: var(--text-secondary); margin-bottom: 16px;">Enhanced keyword format validation and
+                        hierarchical keyword improvements.</p>
+                    <ul style="padding-left: 20px; color: var(--text-secondary);">
+                        <li><strong>Keyword Format Validation:</strong> Explicit instructions ensure keywords are
+                            comma-separated strings</li>
+                        <li><strong>Hierarchical Keywords:</strong> Better prompt engineering for hierarchical keyword
+                            generation</li>
                     </ul>
                 </div>
 
-                <!-- Version 4.0.0 -->
-                <div style="background: #f8f9fa; padding: 2rem; border-radius: 15px; margin-bottom: 2rem; border-left: 5px solid #667eea;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                        <h3 style="color: #667eea; margin: 0; font-size: 1.5rem;">
-                            <i class="fas fa-rocket"></i> Version 4.0.0 - Major Release
-                        </h3>
-                        <span style="background: #667eea; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;">MAJOR</span>
-                    </div>
-                    <p style="color: #666; margin-bottom: 1rem; font-style: italic;">Revolutionary update with local AI processing support</p>
-                    
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-                        <div>
-                            <h4 style="color: #28a745; margin-bottom: 0.5rem;"><i class="fas fa-plus-circle"></i> New Features</h4>
-                            <ul style="color: #555; padding-left: 1.5rem; margin: 0; font-size: 0.9rem;">
-                                <li><strong>Ollama Support:</strong> Local AI processing for complete privacy</li>
-                                <li><strong>AI Provider Selection:</strong> Choose between Gemini (cloud) or Ollama (local)</li>
-                                <li><strong>Local Processing:</strong> Images never leave your computer with Ollama</li>
-                                <li><strong>Provider Factory:</strong> Clean architecture for multiple AI providers</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 style="color: #ffc107; margin-bottom: 0.5rem;"><i class="fas fa-wrench"></i> Improvements</h4>
-                            <ul style="color: #555; padding-left: 1.5rem; margin: 0; font-size: 0.9rem;">
-                                <li><strong>Plugin Rebranding:</strong> Now "AI Image Tagger" (was "Gemini AI")</li>
-                                <li><strong>Enhanced UI:</strong> Provider selection with conditional settings</li>
-                                <li><strong>Better Settings:</strong> Reorganized for provider management</li>
-                                <li><strong>Full Documentation:</strong> Setup guides for both providers</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Version 3.5.0 -->
-                <div style="background: #f8f9fa; padding: 2rem; border-radius: 15px; margin-bottom: 2rem; border-left: 5px solid #6c757d;">
-                    <h3 style="color: #6c757d; margin-bottom: 1rem; font-size: 1.3rem;">
-                        <i class="fas fa-layer-group"></i> Version 3.5.0
-                    </h3>
-                    <ul style="color: #555; padding-left: 1.5rem; margin: 0;">
-                        <li><strong>Collections Simplification:</strong> Streamlined auto collections management</li>
-                        <li><strong>UI Improvements:</strong> Removed non-functional smart collections option</li>
-                        <li><strong>Better User Experience:</strong> Cleaner configuration interface</li>
-                    </ul>
-                </div>
-
-                <!-- Version 3.4.0 -->
-                <div style="background: #f8f9fa; padding: 2rem; border-radius: 15px; margin-bottom: 2rem; border-left: 5px solid #6c757d;">
-                    <h3 style="color: #6c757d; margin-bottom: 1rem; font-size: 1.3rem;">
-                        <i class="fas fa-globe"></i> Version 3.4.0 - Global Reach
-                    </h3>
-                    <ul style="color: #555; padding-left: 1.5rem; margin: 0;">
-                        <li><strong>Full Internationalization:</strong> Support for 16 languages</li>
-                        <li><strong>Global Accessibility:</strong> English, Spanish, French, German, Italian, Portuguese, Russian, Japanese, Korean, Chinese, Dutch, Polish, Swedish, Norwegian, Thai</li>
-                        <li><strong>Cultural Adaptation:</strong> Localized text respecting linguistic conventions</li>
-                        <li><strong>Unicode Support:</strong> Full support for non-Latin scripts</li>
-                    </ul>
-                </div>
             </div>
         </div>
     </section>
 
-    <section id="troubleshooting" style="background: #f8f9fa; padding: 4rem 0;">
+    <section id="download" class="content-section" style="text-align: center;">
         <div class="container">
-            <h2 style="text-align: center; margin-bottom: 3rem; color: #2d3748;"><i class="fas fa-tools"></i> Troubleshooting & Support</h2>
-            
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 3rem;">
-                <div>
-                    <h3 style="color: #2d3748; margin-bottom: 1rem;"><i class="fas fa-exclamation-triangle"></i> Common Issues</h3>
-                    <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-                        <ul style="list-style: none; padding: 0;">
-                            <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
-                                <i class="fas fa-key" style="position: absolute; left: 0; top: 0.2rem; color: #dc3545;"></i>
-                                <strong>"API key not configured"</strong><br>
-                                <span style="color: #666;">Ensure you've entered a valid Gemini AI API key in plugin settings and that it has proper permissions.</span>
-                            </li>
-                            <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
-                                <i class="fas fa-wifi" style="position: absolute; left: 0; top: 0.2rem; color: #dc3545;"></i>
-                                <strong>"Network error"</strong><br>
-                                <span style="color: #666;">Check your internet connection and firewall settings. Try increasing the delay between requests.</span>
-                            </li>
-                            <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
-                                <i class="fas fa-times-circle" style="position: absolute; left: 0; top: 0.2rem; color: #dc3545;"></i>
-                                <strong>"Analysis failed"</strong><br>
-                                <span style="color: #666;">Some images may not be suitable for AI analysis. Try with JPEG format for best results.</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3 style="color: #2d3748; margin-bottom: 1rem;"><i class="fas fa-file-alt"></i> Getting Log Files for Support</h3>
-                    <div style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-                        <p style="margin-bottom: 1rem; color: #666;">When reporting issues, please include log files to help us diagnose the problem:</p>
-                        <ol style="color: #666; padding-left: 1.5rem;">
-                            <li style="margin-bottom: 0.5rem;"><strong>Enable logging:</strong> The plugin automatically logs to Lightroom's log file</li>
-                            <li style="margin-bottom: 0.5rem;"><strong>Find the log file:</strong>
-                                <ul style="margin-top: 0.5rem; font-size: 0.9rem;">
-                                    <li><strong>Windows:</strong> <code style="background: #f0f0f0; padding: 2px 4px; border-radius: 3px;">%USERPROFILE%\AppData\Roaming\Adobe\Lightroom\Logs</code></li>
-                                    <li><strong>macOS:</strong> <code style="background: #f0f0f0; padding: 2px 4px; border-radius: 3px;">~/Library/Logs/Adobe/Lightroom</code></li>
-                                </ul>
-                            </li>
-                            <li style="margin-bottom: 0.5rem;"><strong>Look for files named:</strong> <code style="background: #f0f0f0; padding: 2px 4px; border-radius: 3px;">Lightroom.log</code> or similar</li>
-                            <li style="margin-bottom: 0.5rem;"><strong>Search for:</strong> <code style="background: #f0f0f0; padding: 2px 4px; border-radius: 3px;">lr.tagimg.net</code> or <code style="background: #f0f0f0; padding: 2px 4px; border-radius: 3px;">GeminiAPI</code></li>
-                            <li><strong>Include relevant log entries</strong> when contacting support</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-
-            <div style="text-align: center; background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-                <h3 style="color: #2d3748; margin-bottom: 1rem;"><i class="fas fa-question-circle"></i> Need More Help?</h3>
-                <p style="color: #666; margin-bottom: 1.5rem;">If you're still experiencing issues, please contact support with your log files and a detailed description of the problem.</p>
-                <a href="mailto:lists@anands.net?subject=AI Image Tagger Support" 
-                   style="display: inline-block; background: #007bff; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: background 0.3s ease;"
-                   onmouseover="this.style.background='#0056b3'"
-                   onmouseout="this.style.background='#007bff'">
-                    <i class="fas fa-envelope"></i> Contact Support
-                </a>
-                <div style="margin-top: 1rem; font-size: 0.9rem; color: #666;">
-                    <p><strong>When contacting support, please include:</strong></p>
-                    <p>• Lightroom version • Plugin version • Error message • Log file excerpts • Steps to reproduce</p>
-                </div>
-            </div>
+            <h2 class="section-title">Ready to Transform Your Workflow?</h2>
+            <a href="https://github.com/obelix74/lr-ai-image-tagger-docs/raw/refs/heads/main/dist/ai-lr-tagimg-v6.4.0.zip"
+                class="cta-button">
+                <i class="fas fa-download"></i> Download Latest Version
+            </a>
+            <p style="margin-top: 20px; color: var(--text-secondary);">Requires Adobe Lightroom Classic 2024 or newer.
+            </p>
         </div>
     </section>
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 AI Image Tagger for Adobe Lightroom Classic. Created by Anand's Photography.</p>
-            <p>Powered by Google Gemini AI, OpenAI GPT-4V, and Ollama • Built for Adobe Lightroom Classic</p>
-            <div style="margin-top: 1rem;">
-                <a href="mailto:lists@anands.net" style="color: white; margin: 0 1rem;">
-                    <i class="fas fa-envelope"></i> Support
-                </a>
+            <p>&copy; 2025 Anand's Apps. All rights reserved.</p>
+            <div style="margin-top: 20px;">
+                <a href="index.html">Home</a>
+                <a href="https://github.com/obelix74/lr-ai-image-tagger-docs/issues">Support</a>
+                <a href="https://github.com/obelix74/lr-ai-image-tagger-docs">GitHub</a>
             </div>
         </div>
     </footer>
-
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Add scroll effect to header
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(255, 255, 255, 0.98)';
-            } else {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
-            }
-        });
-    </script>
 </body>
+
 </html>
