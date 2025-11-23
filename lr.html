@@ -166,6 +166,18 @@
             box-shadow: 0 0 30px rgba(244, 63, 94, 0.5);
         }
 
+        .cta-button.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: none;
+        }
+
+        .cta-button.secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--text);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
         /* Features Grid */
         .features {
             padding: 100px 0;
@@ -355,10 +367,15 @@
             <h1>Supercharge Lightroom <br><span>with AI Tagging</span></h1>
             <p>Automatically tag your photos with AI-powered captions, descriptions, and keywords using Google Gemini
                 AI, OpenAI GPT-4V, or local Ollama models directly in Adobe Lightroom Classic.</p>
-            <a href="https://github.com/obelix74/lr-ai-image-tagger-docs/raw/refs/heads/main/dist/ai-lr-tagimg-v6.5.0.zip"
-                class="cta-button">
-                <i class="fas fa-download"></i> Download Plugin v6.5.0
-            </a>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <a href="https://github.com/obelix74/lr-ai-image-tagger-docs/raw/refs/heads/main/dist/ai-lr-tagimg-v6.5.0.zip"
+                    class="cta-button">
+                    <i class="fas fa-download"></i> Download Plugin v6.5.0
+                </a>
+                <a href="https://exchange.adobe.com/apps/cc/204294" target="_blank" class="cta-button secondary">
+                    <i class="fas fa-store"></i> Adobe Exchange
+                </a>
+            </div>
         </div>
     </section>
 
@@ -370,7 +387,8 @@
                     <div class="feature-icon"><i class="fas fa-brain"></i></div>
                     <h3>Smart AI Analysis</h3>
                     <p>Generate intelligent captions, detailed descriptions, and relevant keywords using Google Gemini
-                        AI, OpenAI GPT-4V, or local Ollama models.</p>
+                        3,
+                        OpenAI GPT-4V, or local Ollama models.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon"><i class="fas fa-tags"></i></div>
@@ -469,12 +487,14 @@
                 <!-- v6.5.0 -->
                 <div class="release-note">
                     <div class="release-header">
-                        <h3>Version 6.5.0 - Keyword Cleanup & Hierarchy Fixes</h3>
+                        <h3>Version 6.5.0 - Gemini 3, Keyword Cleanup & Hierarchy Fixes</h3>
                         <span class="version-tag">LATEST</span>
                     </div>
-                    <p style="color: var(--text-secondary); margin-bottom: 16px;">Released November 23, 2025 - Fixed
-                        issues with keyword prefixes and hierarchical keyword handling.</p>
+                    <p style="color: var(--text-secondary); margin-bottom: 16px;">Released November 23, 2025 - Added
+                        support for Gemini 3 and fixed issues with keyword prefixes and hierarchical keyword handling.
+                    </p>
                     <ul style="padding-left: 20px; color: var(--text-secondary);">
+                        <li><strong>Gemini 3 Support:</strong> Added support for the latest Google Gemini 3 models</li>
                         <li><strong>Keyword Cleanup:</strong> Fixed issue where "AI:" prefix appeared in keywords</li>
                         <li><strong>Duplicate Removal:</strong> Improved deduplication of keywords when hierarchical
                             keywords are disabled</li>
@@ -522,12 +542,16 @@
     <section id="download" class="content-section" style="text-align: center;">
         <div class="container">
             <h2 class="section-title">Ready to Transform Your Workflow?</h2>
-            <a href="https://github.com/obelix74/lr-ai-image-tagger-docs/raw/refs/heads/main/dist/ai-lr-tagimg-v6.5.0.zip"
-                class="cta-button">
-                <i class="fas fa-download"></i> Download Latest Version
-            </a>
-            <p style="margin-top: 20px; color: var(--text-secondary);">Requires Adobe Lightroom Classic 2024 or newer.
-            </p>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px;">
+                <a href="https://github.com/obelix74/lr-ai-image-tagger-docs/raw/refs/heads/main/dist/ai-lr-tagimg-v6.5.0.zip"
+                    class="cta-button">
+                    <i class="fas fa-download"></i> Download Latest Version
+                </a>
+                <a href="https://exchange.adobe.com/apps/cc/204294" target="_blank" class="cta-button secondary">
+                    <i class="fas fa-store"></i> Adobe Exchange
+                </a>
+            </div>
+            <p style="color: var(--text-secondary);">Requires Adobe Lightroom Classic 2024 or newer.</p>
         </div>
     </section>
 
