@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BoothFlow - The ultimate iPad app for planning art festival booths. Design layouts, place artwork, and visualize your perfect booth setup.">
+    <meta name="keywords" content="art booth planner, festival booth, craft show, art fair, booth layout, ProPanel, artwork display">
+    <title>BoothFlow - Art Booth Planning Made Easy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #007AFF 0%, #0051D5 100%);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 122, 255, 0.2);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.8;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #007AFF 0%, #0051D5 100%);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 24px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #007AFF;
+            padding: 18px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .app-badge {
+            margin-top: 30px;
+            display: inline-block;
+            width: 200px;
+            filter: brightness(0) invert(1);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 60px;
+            color: #1a1a1a;
+            font-weight: 700;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 122, 255, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #007AFF;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .feature-list li {
+            padding: 8px 0;
+            color: #555;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #007AFF;
+            font-weight: bold;
+        }
+
+        /* Screenshots Section */
+        .screenshots {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .screenshot-item {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            border: 2px solid #e9ecef;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .screenshot-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 122, 255, 0.15);
+        }
+
+        .screenshot-item img {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .screenshot-item .icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .screenshot-item h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #007AFF;
+        }
+
+        .screenshot-item p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #007AFF 0%, #0051D5 100%);
+            color: white;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .benefit-item {
+            text-align: center;
+        }
+
+        .benefit-item .number {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+
+        .benefit-item h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .benefit-item p {
+            opacity: 0.9;
+            font-size: 16px;
+        }
+
+        /* Use Cases */
+        .use-cases {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .use-case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .use-case-card {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 4px solid #007AFF;
+        }
+
+        .use-case-card h3 {
+            color: #007AFF;
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .use-case-card p {
+            color: #666;
+            font-size: 15px;
+        }
+
+        /* Pricing/CTA Section */
+        .final-cta {
+            padding: 100px 0;
+            background: #f8f9fa;
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+            font-weight: 700;
+        }
+
+        .final-cta p {
+            font-size: 20px;
+            color: #666;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        footer p {
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        footer a {
+            color: #007AFF;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .feature-grid,
+            .screenshot-grid,
+            .use-case-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                display: none;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feature-card,
+        .screenshot-item,
+        .use-case-card {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <div class="logo-icon">📐</div>
+                BoothFlow
+            </div>
+            <nav>
+                <a href="#features">Features</a>
+                <a href="#screenshots">Screenshots</a>
+                <a href="#benefits">Benefits</a>
+                <a href="#download">Download</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Plan Your Perfect Art Booth</h1>
+            <p>The ultimate iPad app for artists and vendors preparing for festivals, craft shows, and exhibitions.</p>
+            <a href="#download" class="cta-button">Download for iPad</a>
+            <div style="margin-top: 30px;">
+                <p style="font-size: 16px; opacity: 0.8;">Available on the App Store</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Powerful Features for Professional Planning</h2>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📐</div>
+                    <h3>Floorplan View</h3>
+                    <p>Design your booth layout with precision and ease.</p>
+                    <ul class="feature-list">
+                        <li>Configure booth dimensions (10×10, 10×20, corners, custom)</li>
+                        <li>Place ProPanel walls with accurate seam positions</li>
+                        <li>Add doors, tables, bins, and display racks</li>
+                        <li>Visual grid and dimension tools</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🖼️</div>
+                    <h3>Elevation View</h3>
+                    <p>Visualize your artwork placement in stunning detail.</p>
+                    <ul class="feature-list">
+                        <li>Drag and drop prints onto walls</li>
+                        <li>Real-time collision detection</li>
+                        <li>Eye-line guide for optimal viewing</li>
+                        <li>Interior and exterior wall views</li>
+                        <li>Support for all print types</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📷</div>
+                    <h3>Inventory Management</h3>
+                    <p>Keep track of your entire art collection.</p>
+                    <ul class="feature-list">
+                        <li>Import photos from camera roll</li>
+                        <li>Auto-detect orientation and sizes</li>
+                        <li>Track print types and dimensions</li>
+                        <li>Quick duplicate and search</li>
+                        <li>Beautiful grid layout</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Smart Collision Detection</h3>
+                    <p>Avoid mistakes before setup day.</p>
+                    <ul class="feature-list">
+                        <li>Automatic overlap prevention</li>
+                        <li>Door opening validation</li>
+                        <li>Panel seam warnings</li>
+                        <li>Table and bin placement checks</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Professional Tools</h3>
+                    <p>Everything you need for perfect planning.</p>
+                    <ul class="feature-list">
+                        <li>Multiple print type support</li>
+                        <li>Configurable wall heights</li>
+                        <li>Export booth plans</li>
+                        <li>Eye-line height customization</li>
+                        <li>Panel seam visualization</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Corner Booth Support</h3>
+                    <p>Perfect for premium booth locations.</p>
+                    <ul class="feature-list">
+                        <li>L-shaped wall configurations</li>
+                        <li>Exterior wall management</li>
+                        <li>Dual-face artwork placement</li>
+                        <li>Optimized for high-traffic areas</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshots Section -->
+    <section id="screenshots" class="screenshots">
+        <div class="container">
+            <h2 class="section-title">See BoothFlow in Action</h2>
+
+            <div class="screenshot-grid">
+                <div class="screenshot-item">
+                    <img src="floorplan.png" alt="Floorplan View" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px;">
+                    <h3>Floorplan View</h3>
+                    <p>Design your perfect layout with visual tools and precise measurements</p>
+                </div>
+
+                <div class="screenshot-item">
+                    <img src="left.png" alt="Left Wall Elevation" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px;">
+                    <h3>Left Wall View</h3>
+                    <p>Place artwork on walls with drag-and-drop simplicity</p>
+                </div>
+
+                <div class="screenshot-item">
+                    <img src="interior.png" alt="Interior Wall View" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px;">
+                    <h3>Interior Wall View</h3>
+                    <p>Visualize the interior wall with your artwork placement</p>
+                </div>
+
+                <div class="screenshot-item">
+                    <img src="backwall.png" alt="Back Wall View" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px;">
+                    <h3>Back Wall View</h3>
+                    <p>Plan your back wall display with precision</p>
+                </div>
+
+                <div class="screenshot-item">
+                    <img src="inventory.png" alt="Inventory Manager" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px;">
+                    <h3>Inventory Manager</h3>
+                    <p>Import and organize your entire art collection</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits" class="benefits">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">Why Artists Love BoothFlow</h2>
+
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <div class="number">⏱️</div>
+                    <h3>Save Time</h3>
+                    <p>Plan your entire booth in minutes, not hours of trial and error</p>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="number">💰</div>
+                    <h3>Maximize Sales</h3>
+                    <p>Optimize artwork placement for maximum visibility and impact</p>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="number">😌</div>
+                    <h3>Reduce Stress</h3>
+                    <p>Arrive confident knowing exactly how your booth will look</p>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="number">🎯</div>
+                    <h3>Perfect Placement</h3>
+                    <p>Use eye-line guides and collision detection for professional results</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="use-cases">
+        <div class="container">
+            <h2 class="section-title">Perfect For</h2>
+
+            <div class="use-case-grid">
+                <div class="use-case-card">
+                    <h3>Fine Art Photographers</h3>
+                    <p>Plan your metal print and canvas displays with precision. Track multiple print types and sizes effortlessly.</p>
+                </div>
+
+                <div class="use-case-card">
+                    <h3>Festival Vendors</h3>
+                    <p>Design your setup for art fairs, craft shows, and outdoor festivals. Test different layouts before the big day.</p>
+                </div>
+
+                <div class="use-case-card">
+                    <h3>Gallery Owners</h3>
+                    <p>Plan exhibition layouts and optimize artwork placement for maximum impact in your space.</p>
+                </div>
+
+                <div class="use-case-card">
+                    <h3>Painters & Artists</h3>
+                    <p>Visualize how your framed and unframed works will look together. Perfect your booth aesthetic.</p>
+                </div>
+
+                <div class="use-case-card">
+                    <h3>Show Coordinators</h3>
+                    <p>Help exhibitors plan their spaces more effectively with professional booth planning tools.</p>
+                </div>
+
+                <div class="use-case-card">
+                    <h3>Multi-Show Artists</h3>
+                    <p>Save different booth configurations for various show sizes and formats. Never start from scratch.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section id="download" class="final-cta">
+        <div class="container">
+            <h2>Ready to Transform Your Booth Planning?</h2>
+            <p>Join artists who are planning smarter, displaying better, and selling more.</p>
+            <a href="#" class="cta-button">Download BoothFlow for iPad</a>
+            <p style="margin-top: 30px; font-size: 16px;">Available exclusively for iPad</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 BoothFlow. All rights reserved.</p>
+            <p>
+                <a href="#">Privacy Policy</a> |
+                <a href="#">Terms of Service</a> |
+                <a href="#">Support</a>
+            </p>
+            <p style="margin-top: 20px; font-size: 14px;">
+                Designed for artists, by artists. Made with ❤️ for the art festival community.
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
