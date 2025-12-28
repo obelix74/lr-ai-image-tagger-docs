@@ -1,0 +1,545 @@
+<\!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>PearPenguin - Fast & Beautiful Nutrition Tracker for iOS</title>
+        <meta
+            name="description"
+            content="Track your macros and micros effortlessly with barcode scanning, AI food recognition, and beautiful insights. Privacy-first nutrition tracking for iOS."
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --primary: #10b981;
+                --primary-dark: #059669;
+                --secondary: #3b82f6;
+                --accent: #8b5cf6;
+                --background: #0f172a;
+                --surface: #1e293b;
+                --surface-hover: #334155;
+                --text: #f8fafc;
+                --text-secondary: #94a3b8;
+                --border: #334155;
+                --gradient-main: linear-gradient(
+                    135deg,
+                    #10b981 0%,
+                    #3b82f6 100%
+                );
+                --shadow-lg: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
+                --shadow-glow: 0 0 20px rgba(16, 185, 129, 0.3);
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: "Inter", sans-serif;
+                background-color: var(--background);
+                color: var(--text);
+                line-height: 1.6;
+                overflow-x: hidden;
+            }
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                font-family: "Outfit", sans-serif;
+                font-weight: 700;
+                line-height: 1.2;
+            }
+
+            a {
+                text-decoration: none;
+                color: inherit;
+                transition: all 0.3s ease;
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 24px;
+            }
+
+            /* Header */
+            header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1000;
+                background: rgba(15, 23, 42, 0.8);
+                backdrop-filter: blur(12px);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                padding: 20px 0;
+            }
+
+            nav {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+                font-weight: 800;
+                background: var(--gradient-main);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                letter-spacing: -0.5px;
+            }
+
+            .nav-links {
+                display: flex;
+                gap: 32px;
+            }
+
+            .nav-links a {
+                font-weight: 500;
+                color: var(--text-secondary);
+            }
+
+            .nav-links a:hover {
+                color: var(--text);
+            }
+
+            /* Hero Section */
+            .hero {
+                padding: 180px 0 100px;
+                text-align: center;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .hero::before {
+                content: "";
+                position: absolute;
+                top: -50%;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 1000px;
+                height: 1000px;
+                background: radial-gradient(
+                    circle,
+                    rgba(16, 185, 129, 0.15) 0%,
+                    rgba(0, 0, 0, 0) 70%
+                );
+                z-index: -1;
+                pointer-events: none;
+            }
+
+            .hero h1 {
+                font-size: 4rem;
+                margin-bottom: 24px;
+                letter-spacing: -1px;
+            }
+
+            .hero h1 span {
+                background: var(--gradient-main);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+            .hero p {
+                font-size: 1.25rem;
+                color: var(--text-secondary);
+                max-width: 700px;
+                margin: 0 auto 40px;
+            }
+
+            .cta-button {
+                display: inline-block;
+                background: var(--gradient-main);
+                color: white;
+                padding: 16px 40px;
+                border-radius: 50px;
+                font-weight: 600;
+                font-size: 1.1rem;
+                box-shadow: var(--shadow-glow);
+                transition: all 0.3s ease;
+            }
+
+            .cta-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 0 30px rgba(16, 185, 129, 0.5);
+            }
+
+            /* Features Grid */
+            .features {
+                padding: 100px 0;
+            }
+
+            .section-title {
+                text-align: center;
+                font-size: 2.5rem;
+                margin-bottom: 60px;
+            }
+
+            .features-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 32px;
+            }
+
+            .feature-card {
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 24px;
+                padding: 32px;
+                transition: all 0.3s ease;
+            }
+
+            .feature-card:hover {
+                border-color: var(--primary);
+                transform: translateY(-5px);
+            }
+
+            .feature-icon {
+                font-size: 2.5rem;
+                margin-bottom: 20px;
+                display: inline-block;
+                background: rgba(16, 185, 129, 0.1);
+                width: 60px;
+                height: 60px;
+                line-height: 60px;
+                text-align: center;
+                border-radius: 16px;
+                color: var(--primary);
+            }
+
+            .feature-card h3 {
+                font-size: 1.5rem;
+                margin-bottom: 12px;
+            }
+
+            .feature-card p {
+                color: var(--text-secondary);
+            }
+
+            /* Screenshots Section */
+            .screenshots {
+                padding: 100px 0;
+                background: rgba(30, 41, 59, 0.5);
+            }
+
+            .screenshot-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 40px;
+                margin-top: 40px;
+            }
+
+            .screenshot-placeholder {
+                aspect-ratio: 9/19.5;
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 32px;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--text-secondary);
+                font-size: 1rem;
+                transition: all 0.3s ease;
+                text-align: center;
+                padding: 0;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            }
+
+            .screenshot-placeholder:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 12px 40px rgba(16, 185, 129, 0.2);
+                border-color: var(--primary);
+            }
+
+            /* Footer */
+            footer {
+                border-top: 1px solid var(--border);
+                padding: 60px 0;
+                text-align: center;
+                color: var(--text-secondary);
+            }
+
+            footer a {
+                color: var(--text);
+                margin: 0 12px;
+            }
+
+            footer a:hover {
+                color: var(--primary);
+            }
+
+            @media (max-width: 768px) {
+                .hero h1 {
+                    font-size: 2.5rem;
+                }
+
+                .nav-links {
+                    display: none;
+                }
+
+                .screenshot-grid {
+                    grid-template-columns: 1fr;
+                    gap: 24px;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <header>
+            <nav class="container">
+                <a href="index.html" class="logo">🍐 PearPenguin</a>
+                <div class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#screenshots">Screenshots</a>
+                    <a href="#privacy">Privacy</a>
+                    <a href="mailto:lists@anands.net">Support</a>
+                </div>
+                <a
+                    href="https://apps.apple.com/us/app/pearpenguin-nutrition-tracker/id6756532486"
+                    class="cta-button"
+                    style="padding: 10px 24px; font-size: 0.9rem"
+                    >Download</a
+                >
+            </nav>
+        </header>
+
+        <section class="hero">
+            <div class="container">
+                <h1>Track Nutrition. <br /><span>Live Better.</span></h1>
+                <p>
+                    Lightning-fast nutrition tracker for iOS that makes logging
+                    meals effortless. Track macros and micros in seconds with
+                    barcode scanning, smart search, and beautiful trend charts.
+                </p>
+                <a href="https://apps.apple.com/us/app/pearpenguin-nutrition-tracker/id6756532486" class="cta-button">
+                    <i class="fab fa-apple"></i> Download on App Store
+                </a>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <h2 class="section-title">Powerful Features</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-barcode"></i>
+                        </div>
+                        <h3>Barcode Scanning</h3>
+                        <p>
+                            Instantly log packaged foods by scanning barcodes.
+                            Access nutrition data from USDA and Open Food Facts
+                            databases.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>Smart Food Search</h3>
+                        <p>
+                            Find any food in seconds with intelligent search.
+                            Access hundreds of thousands of foods with complete
+                            nutrition data.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>AI Food Recognition</h3>
+                        <p>
+                            Take a photo of your meal and let AI identify the
+                            foods. Quick corrections ensure accuracy every time.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Beautiful Insights</h3>
+                        <p>
+                            Visualize your nutrition trends with stunning
+                            charts. Track daily, weekly, and monthly progress at
+                            a glance.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3>Quick Recall</h3>
+                        <p>
+                            Access your favorite and frequently eaten foods
+                            instantly. Log common meals in just one tap.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-microscope"></i>
+                        </div>
+                        <h3>Macro & Micro Tracking</h3>
+                        <p>
+                            Track not just calories and macros, but vitamins and
+                            minerals too. Get comprehensive nutrition insights.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <h3>iCloud Sync</h3>
+                        <p>
+                            Your data syncs seamlessly and privately across all
+                            your Apple devices via iCloud.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h3>Custom Goals</h3>
+                        <p>
+                            Set personalized macro and micronutrient goals.
+                            Track progress toward weight loss, maintenance, or
+                            muscle gain.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h3>Meal Templates</h3>
+                        <p>
+                            Save your favorite meals as templates. Log entire
+                            meals with a single tap for ultimate convenience.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="screenshots" class="screenshots">
+            <div class="container">
+                <h2 class="section-title">See It In Action</h2>
+                <div class="screenshot-grid">
+                    <div class="screenshot-placeholder">
+                        <img src="pearpenguin/home.png" alt="PearPenguin Today View - Track your daily nutrition progress" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                    </div>
+                    <div class="screenshot-placeholder">
+                        <img src="pearpenguin/search.png" alt="PearPenguin Food Search - Find any food instantly" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                    </div>
+                    <div class="screenshot-placeholder">
+                        <img src="pearpenguin/trends.png" alt="PearPenguin Trends & Insights - Visualize your nutrition data" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                    </div>
+                </div>
+            </div>
+        </section>
+                <h2 class="section-title">Privacy First</h2>
+                <div
+                    style="
+                        max-width: 800px;
+                        margin: 0 auto;
+                        text-align: center;
+                        color: var(--text-secondary);
+                    "
+                >
+                    <p style="font-size: 1.1rem; margin-bottom: 20px">
+                        PearPenguin respects your privacy. We don't collect,
+                        store, or share your personal data. No ads, no
+                        analytics, no third-party tracking.
+                    </p>
+                    <p>
+                        All your health data is stored securely on your device
+                        and synced privately via your personal iCloud account.
+                        Your nutrition journey is yours alone.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <h2 class="section-title">Why PearPenguin?</h2>
+                <div style="max-width: 900px; margin: 0 auto">
+                    <div class="feature-card" style="margin-bottom: 24px">
+                        <h3>
+                            <i
+                                class="fas fa-rocket"
+                                style="
+                                    color: var(--primary);
+                                    margin-right: 12px;
+                                "
+                            ></i
+                            >Lightning Fast
+                        </h3>
+                        <p>
+                            Log meals in seconds, not minutes. Optimized for
+                            speed with barcode scanning, quick recall, and
+                            one-tap favorites.
+                        </p>
+                    </div>
+                    <div class="feature-card" style="margin-bottom: 24px">
+                        <h3>
+                            <i
+                                class="fas fa-palette"
+                                style="
+                                    color: var(--secondary);
+                                    margin-right: 12px;
+                                "
+                            ></i
+                            >Beautiful Design
+                        </h3>
+                        <p>
+                            Modern, intuitive interface built with SwiftUI.
+                            Gorgeous charts and visualizations make tracking
+                            enjoyable.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>
+                            <i
+                                class="fas fa-brain"
+                                style="color: var(--accent); margin-right: 12px"
+                            ></i
+                            >Smart & Accurate
+                        </h3>
+                        <p>
+                            AI-powered food recognition and comprehensive
+                            nutrition data from trusted sources like USDA and
+                            Open Food Facts.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="container">
+                <p>&copy; 2025 Anand's Photography. All rights reserved.</p>
+                <div style="margin-top: 20px">
+                    <a href="index.html">Home</a>
+                    <a href="mailto:lists@anands.net">Support</a>
+                    <a href="PrivacyPolicy.html">Privacy Policy</a>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

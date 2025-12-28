@@ -272,8 +272,6 @@
                     <p>Automatically tag your photos in Adobe Lightroom Classic using Gemini, GPT-4, or local AI models.
                     </p>
                     <span class="app-link">View Details <i class="fas fa-arrow-right"></i></span>
-                </a>
-
 
                 <!-- PearPenguin -->
                 <a href="pearpenguin.html" class="app-card">
@@ -283,6 +281,8 @@
                         scanning and AI food recognition.</p>
                     <span class="app-link">View Details <i class="fas fa-arrow-right"></i></span>
                 </a>
+                </a>
+
                 <!-- StreakCycle -->
                 <a href="streakcycle.html" class="app-card">
                     <span class="app-icon">🔥</span>
@@ -307,15 +307,6 @@
                     <h3>Warranty Tracker</h3>
                     <p>Never lose a receipt again. Track all your product warranties and expirations in one secure
                         place.</p>
-                    <span class="app-link">View Details <i class="fas fa-arrow-right"></i></span>
-                </a>
-
-                <!-- BoothFlow -->
-                <a href="boothflow.html" class="app-card">
-                    <span class="app-icon">📐</span>
-                    <h3>BoothFlow</h3>
-                    <p>Plan your perfect art booth for festivals and shows. Design layouts, place artwork, and visualize
-                        your setup on iPad.</p>
                     <span class="app-link">View Details <i class="fas fa-arrow-right"></i></span>
                 </a>
             </div>
