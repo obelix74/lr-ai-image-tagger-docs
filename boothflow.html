@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="BoothFlow - The ultimate iPad app for planning art festival booths. Design layouts, place artwork, and visualize your perfect booth setup.">
+    <meta name="description" content="BoothFlow - The ultimate app for planning art festival booths on iPad and Mac. Design layouts, place artwork, and visualize your perfect booth setup.">
     <meta name="keywords" content="art booth planner, festival booth, craft show, art fair, booth layout, ProPanel, artwork display">
     <title>BoothFlow - Art Booth Planning Made Easy</title>
     <style>
@@ -118,6 +118,56 @@
             display: inline-block;
             width: 200px;
             filter: brightness(0) invert(1);
+        }
+
+        .download-badges {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .download-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: white;
+            color: #333;
+            padding: 15px 30px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .download-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .download-badge .icon {
+            font-size: 32px;
+        }
+
+        .download-badge .text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .download-badge .text .label {
+            font-size: 11px;
+            font-weight: 400;
+            opacity: 0.7;
+        }
+
+        .download-badge .text .platform {
+            font-size: 18px;
+            font-weight: 600;
         }
 
         /* Features Section */
@@ -422,10 +472,22 @@
     <section class="hero">
         <div class="container">
             <h1>Plan Your Perfect Art Booth</h1>
-            <p>The ultimate iPad app for artists and vendors preparing for festivals, craft shows, and exhibitions.</p>
-            <a href="#download" class="cta-button">Download for iPad</a>
-            <div style="margin-top: 30px;">
-                <p style="font-size: 16px; opacity: 0.8;">Available on the App Store</p>
+            <p>The ultimate app for artists and vendors preparing for festivals, craft shows, and exhibitions.</p>
+            <div class="download-badges">
+                <a href="#" class="download-badge">
+                    <div class="icon">📱</div>
+                    <div class="text">
+                        <span class="label">Download on the</span>
+                        <span class="platform">iPad App Store</span>
+                    </div>
+                </a>
+                <a href="#" class="download-badge">
+                    <div class="icon">💻</div>
+                    <div class="text">
+                        <span class="label">Download for</span>
+                        <span class="platform">Mac</span>
+                    </div>
+                </a>
             </div>
         </div>
     </section>
@@ -630,8 +692,23 @@
         <div class="container">
             <h2>Ready to Transform Your Booth Planning?</h2>
             <p>Join artists who are planning smarter, displaying better, and selling more.</p>
-            <a href="#" class="cta-button">Download BoothFlow for iPad</a>
-            <p style="margin-top: 30px; font-size: 16px;">Available exclusively for iPad</p>
+            <div class="download-badges" style="background: transparent;">
+                <a href="#" class="download-badge">
+                    <div class="icon">📱</div>
+                    <div class="text">
+                        <span class="label">Download on the</span>
+                        <span class="platform">iPad App Store</span>
+                    </div>
+                </a>
+                <a href="#" class="download-badge">
+                    <div class="icon">💻</div>
+                    <div class="text">
+                        <span class="label">Download for</span>
+                        <span class="platform">Mac</span>
+                    </div>
+                </a>
+            </div>
+            <p style="margin-top: 30px; font-size: 16px;">Available for iPad and Mac</p>
         </div>
     </section>
 
